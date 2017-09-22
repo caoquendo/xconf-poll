@@ -14,27 +14,37 @@ export default class Login extends Component {
     };
 
     render() {
-        return <div>
-            <p>Por favor identifícate para continuar.</p>
-            <form className="login-form">
-                <div>
-                    <label>
-                        Nombre
-                        <small>(Como aparece en tu identificación)</small>
-                    </label>
-                    <input type="text" ref="nameInput"/>
+        return <div className="row">
+            <div className="col s12 m7">
+                <div className="card ">
+                    <div className="card-image">
+                        <img src="images/logo.svg"/>
+                    </div>
+                    <div className="card-content">
+                        <span className="card-title xconf">Por favor identifícate para continuar.</span>
+                        <form className="login-form">
+                            <div>
+                                <label>
+                                    Nombre
+                                    <small>(Como aparece en tu identificación)</small>
+                                </label>
+                                <input type="text" ref="nameInput"/>
+                            </div>
+                            <div>
+                                <label>
+                                    Código del Boleto
+                                    <small>(El número de 6 dígitos)</small>
+                                </label>
+                                <input type="text" maxLength="6" ref="ticketCodeInput"/>
+                            </div>
+
+                            <button className="pink lighten-1 waves-effect waves-light btn" type="submit" onClick={this.__onClick.bind(this)}>
+                                Continuar
+                            </button>
+                        </form>
+                    </div>
                 </div>
-                <div>
-                    <label>
-                        Código del Boleto
-                        <small>(El número de 6 dígitos)</small>
-                    </label>
-                    <input type="text" maxLength="6" ref="ticketCodeInput"/>
-                </div>
-                <button type="submit" onClick={this.__onClick.bind(this)}>
-                    Continuar
-                </button>
-            </form>
+            </div>
         </div>;
     }
 }

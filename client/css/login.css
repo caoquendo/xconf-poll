@@ -1,11 +1,3 @@
-.login-form label {
-    color: #786B93;
-}
-.login-form label small {
-    color: #EC3F83;
-}
-
-.login-form input {
-    border: solid 1px purple;
-
+.card-title.xconf {
+    color: #772F6A;
 }

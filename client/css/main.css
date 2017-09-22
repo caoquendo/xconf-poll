@@ -1,4 +1,8 @@
-/* CSS declarations go here */
 body {
     font-family: -apple-system, BlinkMacSystemFont, Avenir, Avenir Next, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+input:focus {
+    border-bottom: 1px solid #EC3F83 !important;
+    box-shadow: 0 1px 0 0 #EC3F83 !important;
 }
