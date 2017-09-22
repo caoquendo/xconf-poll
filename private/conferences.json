@@ -1,0 +1,41 @@
+{
+  "conferences": [
+    {
+      "_id": "1",
+      "name": "conf 1",
+      "times": {
+        "start": "10h00",
+        "end": "11h00"
+      },
+      "presenters": [
+        "Juan",
+        "Maria",
+        "Pepe"
+      ]
+    },
+    {
+      "_id": "2",
+      "name": "conf 2",
+      "times": {
+        "start": "11h00",
+        "end": "12h00"
+      },
+      "presenters": [
+        "Juan",
+        "Pepe"
+      ]
+    },
+    {
+      "_id": "3",
+      "name": "conf 3",
+      "times": {
+        "start": "14h00",
+        "end": "15h00"
+      },
+      "presenters": [
+        "Maria",
+        "Pepe"
+      ]
+    }
+  ]
+}
