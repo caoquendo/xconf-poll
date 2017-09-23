@@ -18,7 +18,7 @@ export default class TopicConsolidate extends Component {
 
     render() {
         const topic = this.props.topic;
-        const className = classnames("col m4", {"blue-grey small": this.state.small});
+        const className = classnames("col m6", {"blue-grey small": this.state.small});
         return (
             <div className={className} onClick={this.__onClick.bind(this)}>
                 <div className="card">
