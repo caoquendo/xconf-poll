@@ -2,3 +2,11 @@
     height: 300px;
     overflow-y: auto;
 }
+
+.small {
+    font-size: xx-small;
+}
+
+.small .topic {
+    height: 100px;
+}

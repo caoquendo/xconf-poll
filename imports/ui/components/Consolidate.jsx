@@ -16,8 +16,11 @@ class Consolidate extends Component {
     }
 
     render() {
-        return <div className="row">
-            {this.renderTopics()}
+        return <div>
+
+            <div className="row">
+                {this.renderTopics()}
+            </div>
         </div>
     }
 }
