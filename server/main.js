@@ -1,5 +1,6 @@
 import {Meteor} from 'meteor/meteor';
 import {Conferences} from '../imports/api/conferences'
+import {Topics} from '../imports/api/topics'
 
 Meteor.startup(() => {
     if (Conferences.find().count() === 0) {
@@ -14,6 +15,12 @@ Meteor.startup(() => {
                 username: user.name,
                 password: user.ticketCode
             });
+        });
+    }
+
+    if (Topics.find().count() === 0) {
+        JSON.parse(Assets.getText("topics.json")).topics.forEach((topic) => {
+            Topics.insert(topic);
         });
     }
 });
