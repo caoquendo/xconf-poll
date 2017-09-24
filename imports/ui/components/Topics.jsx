@@ -1,8 +1,11 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import {Meteor} from 'meteor/meteor';
+import PropTypes from 'prop-types';
+import {Meteor} from 'meteor/meteor'
+import {createContainer} from 'meteor/react-meteor-data';
+import {Conferences} from '../../api/conferences.js';
 
-export default class Topics extends Component {
+class Topics extends Component {
 
     __onClick = (event) => {
         event.preventDefault();
@@ -28,6 +31,13 @@ export default class Topics extends Component {
                             <div className="input-field">
                                 <select ref="conferenceSelect">
                                     <option value="" disabled selected>Selecciona...</option>
+                                    {this.props.conferences.map((conference) => {
+                                        return <option
+                                            key={conference._id}
+                                            value={conference.name}>
+                                            {conference.name}
+                                        </option>
+                                    })}
                                 </select>
                                 <label>
                                     ¿A qué charla se relaciona?
@@ -45,3 +55,14 @@ export default class Topics extends Component {
         </div>;
     }
 }
+
+Topics.propTypes = {
+    conferences: PropTypes.array.isRequired
+};
+
+export default createContainer(() => {
+    Meteor.subscribe('conferences');
+    return {
+        conferences: Conferences.find({}, {sort: {name: 1}}).fetch()
+    };
+}, Topics);
