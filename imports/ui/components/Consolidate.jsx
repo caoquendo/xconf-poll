@@ -13,11 +13,35 @@ class Consolidate extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedConference: null
-        }
+            selectedConference: null,
+            consolidated: ""
+        };
     }
 
-    renderTopics() {
+    componentDidMount() {
+        Meteor.setTimeout(() => {
+            const $this = this;
+            $('select').on('change', (event) => {
+                let selectedConference = event.target.value;
+                $this.setState({
+                    selectedConference: selectedConference,
+                    consolidated: ""
+                });
+            }).material_select();
+        }, 20);
+    }
+
+    __onTopicClicked(text) {
+        let sc = this.state.selectedConference;
+        let c = this.state.consolidated;
+        console.log(this.state, text);
+        this.setState({
+            selectedConference: sc,
+            consolidated: c + "\n---\n" + text
+        });
+    }
+
+    __renderTopics() {
         let filteredTopics = this.props.topics;
         if (this.props.conferences.length > 0) {
             let conference = this.props.conferences[0].name;
@@ -28,18 +52,22 @@ class Consolidate extends Component {
         }
         return filteredTopics.map((topic) => {
             return (
-                <TopicConsolidate key={topic._id} topic={topic}/>
+                <TopicConsolidate key={topic._id} topic={topic}
+                                  onClick={this.__onTopicClicked.bind(this)}/>
             );
         });
     }
 
-    componentDidMount() {
-        Meteor.setTimeout(() => {
-            const $this = this;
-            $('select').on('change', (event) => {
-                $this.setState({selectedConference: event.target.value});
-            }).material_select();
-        }, 20);
+    __createConferencesSelect() {
+        return <select>
+            {this.props.conferences.map((conf) => {
+                return <option
+                    key={conf._id}
+                    value={conf.name}>
+                    {conf.name}
+                </option>
+            })}
+        </select>;
     }
 
     render() {
@@ -47,21 +75,22 @@ class Consolidate extends Component {
             <div className="row">
                 <form>
                     <div className="input-field col md4 offset-m3">
-                        <select>
-                            {this.props.conferences.map((conf) => {
-                                return <option
-                                    key={conf._id}
-                                    value={conf.name}>
-                                    {conf.name}
-                                </option>
-                            })}
-                        </select>
+                        {this.__createConferencesSelect()}
                     </div>
                 </form>
             </div>
 
             <div className="row">
-                {this.renderTopics()}
+                {this.__renderTopics()}
+            </div>
+
+            <div className="row">
+                <form>
+                    <div className="input-field col m12">
+                        <textarea className="materialize-textarea consolidated-topic" value={this.state.consolidated}/>
+                        <label>Consolidado</label>
+                    </div>
+                </form>
             </div>
         </div>
     }

@@ -1,5 +1,5 @@
 .topic {
-    height: 300px;
+    height: 200px;
     overflow-y: auto;
 }
 
@@ -9,4 +9,9 @@
 
 .small .topic {
     height: 100px;
+}
+
+.consolidated-topic {
+    height: 600px !important;
+    border: solid 1px lightpink;
 }

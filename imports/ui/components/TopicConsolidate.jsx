@@ -12,8 +12,11 @@ export default class TopicConsolidate extends Component {
     }
 
     __onClick() {
-        const prevSmall = this.state.small;
-        this.setState({small: !prevSmall});
+        const isSmall = !this.state.small;
+        this.setState({small: isSmall});
+        if (isSmall) {
+            this.props.onClick(this.props.topic.text);
+        }
     }
 
     render() {
@@ -37,5 +40,6 @@ export default class TopicConsolidate extends Component {
 }
 
 TopicConsolidate.propTypes = {
-    topic: PropTypes.object.isRequired
+    topic: PropTypes.object.isRequired,
+    onClick: PropTypes.func.isRequired
 };
