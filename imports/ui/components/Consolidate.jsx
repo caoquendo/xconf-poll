@@ -117,6 +117,22 @@ class Consolidate extends Component {
         </select>;
     }
 
+    __onSaveConsolidated(event) {
+        const allConfs = this.props.conferences;
+        let selectedConferenceId = this.state.selectedConferenceId;
+        if (selectedConferenceId === null) {
+            selectedConferenceId = allConfs[0]._id;
+        }
+        let consolidatedText = event.target.value;
+        Meteor.call('conferences.setConsolidated', `${selectedConferenceId}`, consolidatedText);
+    }
+
+    __onChange(event) {
+        this.setNewState({
+            selectedConferenceText: event.target.value
+        });
+    }
+
     render() {
         return <div>
             <div className="row">
@@ -135,7 +151,10 @@ class Consolidate extends Component {
                 <form>
                     <div className="input-field col m12">
                         <textarea className="materialize-textarea consolidated-topic"
-                                  value={this.state.selectedConferenceText}/>
+                                  onChange={this.__onChange.bind(this)}
+                                  onBlur={this.__onSaveConsolidated.bind(this)}
+                                  value={this.state.selectedConferenceText}
+                        />
                         <label>Consolidado</label>
                     </div>
                 </form>
