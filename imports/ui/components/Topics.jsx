@@ -7,9 +7,22 @@ import {Conferences} from '../../api/conferences.js';
 
 class Topics extends Component {
 
+    __conferenceSelect = undefined;
+
     __onClick = (event) => {
         event.preventDefault();
+
+        const suggestedTopic = ReactDOM.findDOMNode(this.refs.topicTextarea).value.trim();
+        const relatedConference = this.__conferenceSelect.value;
+
+        console.log(suggestedTopic, relatedConference);
     };
+
+    componentDidUpdate() {
+        if (!this.props.loading) {
+            $('.conference-select').material_select();
+        }
+    }
 
     render() {
         return <div className="row">
@@ -29,7 +42,7 @@ class Topics extends Component {
                                 </label>
                             </div>
                             <div className="input-field">
-                                <select ref="conferenceSelect">
+                                <select className="conference-select" ref={(input) => this.__conferenceSelect = input }>
                                     <option value="" disabled selected>Selecciona...</option>
                                     {this.props.conferences.map((conference) => {
                                         return <option
@@ -57,12 +70,16 @@ class Topics extends Component {
 }
 
 Topics.propTypes = {
-    conferences: PropTypes.array.isRequired
+    conferences: PropTypes.array.isRequired,
+    loading: PropTypes.bool.isRequired
 };
 
 export default createContainer(() => {
-    Meteor.subscribe('conferences');
+    const conferencesSubscription = Meteor.subscribe('conferences');
+    const loading = !conferencesSubscription.ready();
+
     return {
-        conferences: Conferences.find({}, {sort: {name: 1}}).fetch()
+        conferences: Conferences.find({}, {sort: {name: 1}}).fetch(),
+        loading
     };
 }, Topics);
