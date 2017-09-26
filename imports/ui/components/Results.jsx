@@ -5,13 +5,17 @@ import {createContainer} from 'meteor/react-meteor-data';
 
 import {ConsolidatedTopics} from '../../api/consolidatedTopics.js';
 import ResultItem from "./ResultItem";
+import Timer from "./Timer";
 
 class Results extends Component {
     render() {
-        return <div className="row">
-            {this.props.consolidatedTopics.map((topic, index) => {
-                return <ResultItem key={topic._id} topic={topic} index={index}/>
-            })}
+        return <div>
+            <Timer startTime="2017-09-26 17:30" endTime="2017-09-26 18:41"/>
+            <div className="row">
+                {this.props.consolidatedTopics.map((topic, index) => {
+                    return <ResultItem key={topic._id} topic={topic} index={index}/>
+                })}
+            </div>
         </div>
     }
 }

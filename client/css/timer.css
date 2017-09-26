@@ -1,0 +1,92 @@
+.timer-wrapper {
+    width: 192px;
+    height: 192px;
+    position: relative;
+    background: white;
+}
+
+.timer-ghost {
+    width: 192px;
+    height: 192px;
+    background: #786B94;
+    border: solid 10px #494964;
+    position: absolute;
+    opacity: 0.15;
+    z-index: 400;
+    border-radius: 125px;
+}
+
+.timer-label {
+    width: 96px;
+    height: 96px;
+    background: white;
+    color: #746693;
+    position: absolute;
+    top: calc(50% - 50px);
+    left: calc(50% - 50px);
+    z-index: 401;
+    font-weight: bold;
+    border-radius: 100%;
+    padding-top: calc(25% - 12px);
+    padding-left: 5px;
+    font-size: 18px;
+}
+
+.pie {
+    width: 50%;
+    height: 100%;
+    transform-origin: 100% 50%;
+    position: absolute;
+    background: #EC3F83;
+    border: 10px solid rgba(0, 0, 0, 0.4);
+}
+
+.spinner {
+    border-radius: 125px 0 0 125px;
+    z-index: 200;
+    border-right: none;
+}
+
+.filler {
+    border-radius: 0 125px 125px 0;
+    z-index: 100;
+    border-left: none;
+    left: 50%;
+    opacity: 0;
+}
+
+.mask {
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    z-index: 300;
+    opacity: 1;
+    background: inherit;
+}
+
+@keyframes rota {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes fill {
+    0% {
+        opacity: 0;
+    }
+    50%, 100% {
+        opacity: 1;
+    }
+}
+
+@keyframes mask {
+    0% {
+        opacity: 1;
+    }
+    50%, 100% {
+        opacity: 0;
+    }
+}
