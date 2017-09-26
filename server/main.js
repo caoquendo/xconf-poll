@@ -1,6 +1,7 @@
 import {Meteor} from 'meteor/meteor';
 import {Conferences} from '../imports/api/conferences'
 import {Topics} from '../imports/api/topics'
+import {ConsolidatedTopics} from '../imports/api/consolidatedTopics'
 
 Meteor.startup(() => {
     if (Conferences.find().count() === 0) {

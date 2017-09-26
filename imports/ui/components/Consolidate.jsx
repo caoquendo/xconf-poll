@@ -5,6 +5,8 @@ import {createContainer} from 'meteor/react-meteor-data';
 
 import {Topics} from '../../api/topics.js';
 import {Conferences} from '../../api/conferences.js';
+import {ConsolidatedTopics} from '../../api/consolidatedTopics.js';
+
 import TopicConsolidate from "./TopicConsolidate";
 
 class Consolidate extends Component {
@@ -12,9 +14,9 @@ class Consolidate extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedConference: null,
-            selectedConferenceId: null,
-            selectedConferenceText: ''
+            selectedConference   : null,
+            selectedConferenceId : null,
+            consolidatedText     : ''
         };
     }
 
@@ -38,9 +40,9 @@ class Consolidate extends Component {
                 consolidated = conferences[0].consolidated;
             }
             this.setNewState({
-                selectedConference: selectedConference,
-                selectedConferenceId: selectedConferenceId,
-                selectedConferenceText: consolidated
+                selectedConference   : selectedConference,
+                selectedConferenceId : selectedConferenceId,
+                consolidatedText     : consolidated
             });
             const that = this;
             $('select').on('change', (event) => {
@@ -57,9 +59,9 @@ class Consolidate extends Component {
                     consolidated = '';
                 }
                 that.setNewState({
-                    selectedConference: selectedConference,
-                    selectedConferenceId: selectedConferenceId,
-                    selectedConferenceText: consolidated
+                    selectedConference   : selectedConference,
+                    selectedConferenceId : selectedConferenceId,
+                    consolidatedText     : consolidated
                 });
             }).material_select();
         }, 200);
@@ -72,7 +74,7 @@ class Consolidate extends Component {
         }
         let selectedConference = this.state.selectedConference;
         let selectedConferenceId = this.state.selectedConferenceId;
-        let consolidatedText = this.state.selectedConferenceText + "\n---\n" + text;
+        let consolidatedText = this.state.consolidatedText + "\n---\n" + text;
 
         if (selectedConferenceId === null) {
             selectedConferenceId = conference._id;
@@ -80,11 +82,10 @@ class Consolidate extends Component {
         }
 
         this.setNewState({
-            selectedConferenceId: selectedConferenceId,
-            selectedConference: selectedConference,
-            selectedConferenceText: consolidatedText
+            selectedConferenceId : selectedConferenceId,
+            selectedConference   : selectedConference,
+            consolidatedText     : consolidatedText
         });
-        Meteor.call('conferences.setConsolidated', `${selectedConferenceId}`, consolidatedText);
     }
 
     __renderTopics() {
@@ -118,61 +119,75 @@ class Consolidate extends Component {
     }
 
     __onSaveConsolidated(event) {
+        event.preventDefault();
         const allConfs = this.props.conferences;
-        let selectedConferenceId = this.state.selectedConferenceId;
-        if (selectedConferenceId === null) {
-            selectedConferenceId = allConfs[0]._id;
+        let selectedConference = this.state.selectedConference;
+        if (selectedConference === null) {
+            selectedConference = allConfs[0].name;
         }
-        let consolidatedText = event.target.value;
-        Meteor.call('conferences.setConsolidated', `${selectedConferenceId}`, consolidatedText);
+        let consolidatedText = this.state.consolidatedText;
+        Meteor.call('consolidatedTopics.insert', selectedConference, consolidatedText);
     }
 
     __onChange(event) {
         this.setNewState({
-            selectedConferenceText: event.target.value
+            consolidatedText : event.target.value
         });
     }
 
     render() {
         return <div>
             <div className="row">
-                <form>
-                    <div className="input-field col md4 offset-m3">
-                        {this.__createConferencesSelect()}
+                <div className="col l6 s12">
+                    <div className="row">
+                        <div className="input-field col md4 offset-m3">
+                            {this.__createConferencesSelect()}
+                        </div>
                     </div>
-                </form>
-            </div>
 
-            <div className="row">
-                {this.__renderTopics()}
-            </div>
+                    <div className="row">
+                        {this.__renderTopics()}
+                    </div>
 
-            <div className="row">
-                <form>
-                    <div className="input-field col m12">
+                    <div className="row">
+                        <form>
+                            <div className="input-field col m12">
                         <textarea className="materialize-textarea consolidated-topic"
                                   onChange={this.__onChange.bind(this)}
-                                  onBlur={this.__onSaveConsolidated.bind(this)}
-                                  value={this.state.selectedConferenceText}
-                        />
-                        <label>Consolidado</label>
+                                  value={this.state.consolidatedText}/>
+                                <label>Consolidado</label>
+                            </div>
+                            <button type="submit"
+                                    className="waves-effect waves-light btn"
+                                    onClick={this.__onSaveConsolidated.bind(this)}>
+                                Guardar
+                            </button>
+                        </form>
                     </div>
-                </form>
+                </div>
+                <div className="col l6 s12">
+                    {this.props.consolidatedTopics.map(topic => {
+                        return <div key={topic._id}>{topic.text}</div>
+                    })}
+                </div>
             </div>
         </div>
     }
 }
 
 Consolidate.propTypes = {
-    topics: PropTypes.array.isRequired,
-    conferences: PropTypes.array.isRequired
+    topics             : PropTypes.array.isRequired,
+    conferences        : PropTypes.array.isRequired,
+    consolidatedTopics : PropTypes.array
 };
 
 export default createContainer(() => {
     Meteor.subscribe('topics');
     Meteor.subscribe('conferences');
+    Meteor.subscribe('consolidatedTopics');
     return {
-        topics: Topics.find({}, {sort: {conference: 1}}).fetch(),
-        conferences: Conferences.find({}, {sort: {name: 1}}).fetch()
+        topics             : Topics.find({}, {sort : {conference : 1}}).fetch(),
+        conferences        : Conferences.find({}, {sort : {name : 1}}).fetch(),
+        consolidatedTopics : ConsolidatedTopics.find({}, {sort : {conference : 1}}).fetch()
     };
 }, Consolidate);
