@@ -8,6 +8,7 @@ import {Conferences} from '../../api/conferences.js';
 import {ConsolidatedTopics} from '../../api/consolidatedTopics.js';
 
 import TopicConsolidate from "./TopicConsolidate";
+import ConsolidatedTopic from "./ConsolidatedTopic";
 
 class Consolidate extends Component {
 
@@ -125,8 +126,13 @@ class Consolidate extends Component {
         if (selectedConference === null) {
             selectedConference = allConfs[0].name;
         }
-        let consolidatedText = this.state.consolidatedText;
-        Meteor.call('consolidatedTopics.insert', selectedConference, consolidatedText);
+        let consolidatedText = this.state.consolidatedText.trim();
+        if (consolidatedText !== '') {
+            Meteor.call('consolidatedTopics.insert', selectedConference, consolidatedText);
+        }
+        this.setNewState({
+            consolidatedText : ''
+        });
     }
 
     __onChange(event) {
@@ -166,9 +172,11 @@ class Consolidate extends Component {
                     </div>
                 </div>
                 <div className="col l6 s12">
-                    {this.props.consolidatedTopics.map(topic => {
-                        return <div key={topic._id}>{topic.text}</div>
-                    })}
+                    <div className="row">
+                        {this.props.consolidatedTopics.map(topic => {
+                            return <ConsolidatedTopic key={topic._id} topic={topic}/>
+                        })}
+                    </div>
                 </div>
             </div>
         </div>

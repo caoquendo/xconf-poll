@@ -17,7 +17,8 @@ Meteor.methods({
 
         ConsolidatedTopics.insert({
             conference,
-            text
+            text,
+            votes : 0
         });
     },
     'consolidatedTopics.remove'(topicId) {
