@@ -13,9 +13,11 @@ class Topics extends Component {
         event.preventDefault();
 
         const suggestedTopic = ReactDOM.findDOMNode(this.refs.topicTextarea).value.trim();
-        const relatedConference = this.__conferenceSelect.value;
+        const relatedConferenceName = this.__conferenceSelect.value;
 
-        console.log(suggestedTopic, relatedConference);
+        if (suggestedTopic !== '' && relatedConferenceName !== '') {
+            Meteor.call('topics.insert', relatedConferenceName, suggestedTopic);
+        }
     };
 
     componentDidUpdate() {
@@ -27,7 +29,7 @@ class Topics extends Component {
     render() {
         return <div className="row">
             <div className="col s12 m7">
-                <div className="card ">
+                <div className="card">
                     <div className="card-image">
                         <img src="images/logo.svg"/>
                     </div>

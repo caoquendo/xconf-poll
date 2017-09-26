@@ -5,6 +5,7 @@ import {createContainer} from 'meteor/react-meteor-data';
 import Login from "./components/Login";
 import Consolidate from './components/Consolidate';
 import Results from './components/Results';
+import Topics from "./components/Topics";
 
 class App extends Component {
     __onClick = (event) => {
