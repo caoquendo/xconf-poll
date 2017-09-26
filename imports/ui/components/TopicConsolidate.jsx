@@ -26,7 +26,7 @@ export default class TopicConsolidate extends Component {
             <div className={className} onClick={this.__onClick.bind(this)}>
                 <div className="card">
                     <div className="card-content">
-                        <div className="card-title">
+                        <div className="card-title deep-purple-text text-lighten-2">
                             {topic.conference}
                         </div>
                         <div className="topic">

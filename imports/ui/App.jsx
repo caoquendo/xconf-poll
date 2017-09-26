@@ -4,6 +4,7 @@ import {Meteor} from 'meteor/meteor'
 import {createContainer} from 'meteor/react-meteor-data';
 import Login from "./components/Login";
 import Consolidate from './components/Consolidate';
+import Results from './components/Results';
 
 class App extends Component {
     __onClick = (event) => {
@@ -19,7 +20,8 @@ class App extends Component {
                 <button type="submit" onClick={this.__onClick.bind(this)}>
                     Bye
                 </button>
-                <Consolidate/>
+                <Results/>
+                {/*<Consolidate/>*/}
             </div> :
             <Login/>;
     }

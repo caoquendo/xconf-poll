@@ -13,7 +13,7 @@ export default class ConsolidatedTopic extends Component {
         return <div className="col m4 s6">
             <div className="card">
                 <div className="card-content">
-                    <span className="card-title">
+                    <span className="card-title pink-text text-lighten-1">
                         {this.props.topic.conference}
                     </span>
                     {this.props.topic.text}
