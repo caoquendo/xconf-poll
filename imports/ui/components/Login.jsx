@@ -23,19 +23,19 @@ export default class Login extends Component {
                     <div className="card-content">
                         <span className="card-title xconf">Por favor identifícate para continuar.</span>
                         <form className="login-form">
-                            <div>
+                            <div className="input-field">
+                                <input type="text" ref="nameInput"/>
                                 <label>
                                     Nombre
                                     <small>(Como aparece en tu identificación)</small>
                                 </label>
-                                <input type="text" ref="nameInput"/>
                             </div>
-                            <div>
+                            <div className="input-field">
+                                <input type="text" maxLength="6" ref="ticketCodeInput"/>
                                 <label>
                                     Código del Boleto
                                     <small>(El número de 6 dígitos)</small>
                                 </label>
-                                <input type="text" maxLength="6" ref="ticketCodeInput"/>
                             </div>
 
                             <button className="pink lighten-1 waves-effect waves-light btn" type="submit" onClick={this.__onClick.bind(this)}>
