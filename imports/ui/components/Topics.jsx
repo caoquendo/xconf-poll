@@ -19,6 +19,8 @@ class Topics extends Component {
 
         if (suggestedTopic !== '' && relatedConferenceName !== '') {
             Meteor.call('topics.insert', relatedConferenceName, suggestedTopic);
+
+            ReactDOM.findDOMNode(this.refs.topicTextarea).value = '';
         }
     };
 
