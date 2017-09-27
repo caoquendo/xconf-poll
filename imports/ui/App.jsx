@@ -4,11 +4,30 @@ import {Meteor} from 'meteor/meteor'
 import {createContainer} from 'meteor/react-meteor-data';
 import Login from "./components/Login";
 import Consolidate from './components/Consolidate';
+import ConsolidateWait from './components/ConsolidateWait';
 import Results from './components/Results';
 import Topics from "./components/Topics";
 import Poll from "./components/Poll";
+import NonAvailable from "./components/NonAvailable";
+
+const moment = require('moment');
 
 class App extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            time: moment()
+        };
+
+        setInterval(() => {
+            this.setState({
+                time: moment()
+            });
+        });
+    }
+
     __onClick = (event) => {
         event.preventDefault();
 
@@ -23,18 +42,50 @@ class App extends Component {
     Resultados -> > 16:40
     */
 
+    __render() {
+        const now = this.state.time;
+        let date = '2017-09-30';
+        const startCreateTopics = date + ' 10:50';
+        const startConsolidate = date + ' 15:45';
+        const startVote = date + ' 16:15';
+        const startResults = date + ' 16:40';
+        const endAll = date + ' 20:00';
+
+        if (now.isBefore(startCreateTopics) || now.isAfter(endAll)) {
+            return <NonAvailable/>
+        }
+
+        if (this.props.currentUser) {
+            let btn = (<button type="submit" onClick={this.__onClick.bind(this)}>
+                Bye
+            </button>);
+            let button = this.isValidUser() ? btn : null;
+            if (now.isSameOrAfter(startResults)) {
+                return <div>{button}<Results/></div>
+            }
+            if (now.isSameOrAfter(startVote)) {
+                return <Poll/>
+            }
+            if (now.isSameOrAfter(startConsolidate)) {
+                if (this.isValidUser()) {
+                    return <Consolidate/>
+                }
+                return <ConsolidateWait/>;
+            }
+            if (now.isSameOrAfter(startCreateTopics)) {
+                return <Topics/>
+            }
+        }
+        return <Login/>
+    }
+
+    isValidUser() {
+        let arr = ['Luz Unda', 'C3'];
+        return arr.indexOf(this.props.currentUser.username) !== -1;
+    }
+
     render() {
-        return this.props.currentUser ?
-            <div>
-                Hola {this.props.currentUser.username}
-                <button type="submit" onClick={this.__onClick.bind(this)}>
-                    Bye
-                </button>
-                <Poll/>
-                {/*<Results/>*/}
-                {/*<Consolidate/>*/}
-            </div> :
-            <Login/>;
+        return this.__render();
     }
 }
 

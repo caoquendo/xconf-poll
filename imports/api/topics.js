@@ -11,7 +11,6 @@ if(Meteor.isServer) {
 }
 
 Meteor.methods({
-
     'topics.insert'(conference, text) {
         check(conference, String);
         check(text, String);

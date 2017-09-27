@@ -9,6 +9,11 @@
       "_id": "2",
       "name": "C3",
       "ticketCode": "C1B2A3"
+    },
+    {
+      "_id": "3",
+      "name": "Otro",
+      "ticketCode": "A2B3C4"
     }
   ]
 }
