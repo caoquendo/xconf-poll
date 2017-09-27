@@ -6,7 +6,7 @@ import classnames from 'classnames';
 export default class ResultItem extends Component {
 
     render() {
-        const numWinners = 5;
+        const numWinners = 4;
         const topic = this.props.topic;
         const className = classnames("card-content", {"pink lighten-4" : this.props.index < numWinners});
         return (

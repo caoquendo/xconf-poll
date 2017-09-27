@@ -40,7 +40,7 @@ class App extends Component {
     Crear topics: 10:50 -> 15:45
     Consolidacion: 15:45 -> 16:15
     Votacion: 16:15 -> 16:40
-    Resultados -> > 16:40
+    Resultados -> 16:40 -> 20:00
     */
 
     __render() {
