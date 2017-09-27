@@ -49,5 +49,17 @@ Meteor.methods({
         votes += 1;
 
         ConsolidatedTopics.update(topicId, {$set : {votes : votes}});
+    },
+    'consolidatedTopics.subtractVote'(topicId) {
+        check(topicId, String);
+
+        const topic = ConsolidatedTopics.findOne(topicId);
+        let votes = topic.votes;
+        if (typeof votes === 'undefined' || votes === null) {
+            votes = 0;
+        }
+        votes -= 1;
+
+        ConsolidatedTopics.update(topicId, {$set : {votes : votes}});
     }
 });
