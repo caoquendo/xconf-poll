@@ -10,10 +10,20 @@ if (Meteor.isServer) {
     });
 }
 
+let validateUser = function () {
+    const users = ['Luz Unda', 'C3'];
+
+    if (!Meteor.userId() || users.indexOf(Meteor.user().username) === -1) {
+        throw new Meteor.Error('not-authorized');
+    }
+};
+
 Meteor.methods({
     'consolidatedTopics.insert'(conference, text) {
         check(conference, String);
         check(text, String);
+
+        validateUser();
 
         ConsolidatedTopics.insert({
             conference,
@@ -23,6 +33,8 @@ Meteor.methods({
     },
     'consolidatedTopics.remove'(topicId) {
         check(topicId, String);
+
+        validateUser();
 
         ConsolidatedTopics.remove(topicId);
     },
