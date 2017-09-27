@@ -119,7 +119,7 @@ class Consolidate extends Component {
                             {this.__createConferencesSelect()}
                         </div>
                         <div className="col md2">
-                            <button className="pink lighten-1 waves-effect waves-light btn" type="submit"
+                            <button className="pink lighten-1 waves-effect waves-light btn-large" type="submit"
                                     onClick={this.__onClick.bind(this)}>
                                 Ver
                             </button>
@@ -132,21 +132,21 @@ class Consolidate extends Component {
 
                     <div className="row">
                         <form>
-                            <div className="input-field col m12">
+                            <div className="input-field col s12">
                         <textarea className="materialize-textarea consolidated-topic"
                                   onChange={this.__onChange.bind(this)}
                                   value={this.state.consolidatedText}/>
                                 <label>Consolidado</label>
                             </div>
                             <button type="submit"
-                                    className="waves-effect waves-light btn"
+                                    className="waves-effect waves-light btn-large"
                                     onClick={this.__onSaveConsolidated.bind(this)}>
                                 Guardar
                             </button>
                         </form>
                     </div>
                 </div>
-                <div className="col l6 s12">
+                <div className="col s12">
                     <div className="row">
                         {this.props.consolidatedTopics.map(topic => {
                             return <ConsolidatedTopic key={topic._id} topic={topic}/>

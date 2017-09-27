@@ -81,7 +81,10 @@ class App extends Component {
             }
             if (now.isSameOrAfter(startConsolidate)) {
                 if (this.isValidUser()) {
-                    return this.__withLogoutButton(<Consolidate/>);
+                   return <div>
+                        {this.__logoutButton()}
+                        <Consolidate/>
+                    </div>
                 }
                 return this.__withLogoutButton(<ConsolidateWait/>, startConsolidate, startVote, "Pronto podrás votar por tus favoritos!");
             }
@@ -121,7 +124,7 @@ class App extends Component {
 
     __logoutButton() {
         let button = (<button type="submit"
-                              className="waves-effect waves-light btn pink lighten-2"
+                              className="waves-effect waves-light btn-large pink lighten-2"
                               onClick={this.__onClick.bind(this)}>
             Bye
         </button>);
