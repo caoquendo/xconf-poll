@@ -21,16 +21,16 @@ export default class ResultItem extends Component {
 
         let button = alreadyVoted ?
             <button onClick={this.__onDownVote.bind(this)}
-                    className="waves-effect waves-light btn gray lighten-2 right">
+                    className="waves-effect waves-light btn-large gray lighten-2 right">
                 -1
             </button> :
             this.props.canUpVote ?
                 <button onClick={this.__onUpVote.bind(this)}
-                        className="waves-effect waves-light btn pink lighten-2 right">
+                        className="waves-effect waves-light btn-large pink lighten-2 right">
                     +1
                 </button> :
                 <button disabled
-                    className="waves-effect waves-light btn pink lighten-2 right">
+                    className="waves-effect waves-light btn-large pink lighten-2 right">
                     +1
                 </button>;
 
@@ -39,7 +39,9 @@ export default class ResultItem extends Component {
                 <div className="card">
                     <div className="card-content">
                         {button}
-                        <span className="card-title pink-text text-lighten-1">{topic.conference}</span>
+                        <span className="card-title pink-text text-lighten-1">
+                            <h5>{topic.conference}</h5>
+                        </span>
                         {topic.text}
                     </div>
                 </div>

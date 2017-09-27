@@ -41,13 +41,22 @@ class Poll extends Component {
         return votes.length === 0 ? null : votes[0];
     };
 
+    __votes() {
+        let remainingVotes = this.props.maxVotes - (this.props.myVotes ? this.props.myVotes.length : 0);
+        if(remainingVotes === 0 ){
+            return <span>Ya no tienes más votos :(</span>
+        }
+        return <span>Te queda{remainingVotes === 1 ? '' : 'n'} <strong>{remainingVotes} </strong>
+            voto{remainingVotes === 1 ? '' : 's'}.</span>
+    }
+
     render() {
         let canUpVote = this.__canUpVote();
-        let remainingVotes = this.props.maxVotes - (this.props.myVotes ? this.props.myVotes.length : 0);
 
         return <div>
-            <Timer startTime="2017-09-26 17:30" endTime="2017-09-26 18:41"/>
-            <p>Te quedan <span>{remainingVotes}</span> votos.</p>
+            <div className="xconf-title">
+                {this.__votes()}
+            </div>
             <div className="row">
                 {this.props.consolidatedTopics.map((topic, index) => {
                     let vote = this.__getVote(topic._id);
@@ -65,9 +74,9 @@ class Poll extends Component {
 }
 
 Poll.propTypes = {
-    consolidatedTopics: PropTypes.array.isRequired,
-    myVotes: PropTypes.array,
-    maxVotes: PropTypes.number.isRequired
+    consolidatedTopics : PropTypes.array.isRequired,
+    myVotes : PropTypes.array,
+    maxVotes : PropTypes.number.isRequired
 };
 
 export default createContainer(() => {
@@ -75,8 +84,8 @@ export default createContainer(() => {
     Meteor.subscribe('votes');
 
     return {
-        consolidatedTopics: ConsolidatedTopics.find({}).fetch(),
-        myVotes: Votes.find({userId: Meteor.userId()}).fetch(),
-        maxVotes: 3
+        consolidatedTopics : ConsolidatedTopics.find({}).fetch(),
+        myVotes : Votes.find({userId : Meteor.userId()}).fetch(),
+        maxVotes : 3
     };
 }, Poll);

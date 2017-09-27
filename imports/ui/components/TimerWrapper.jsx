@@ -22,9 +22,10 @@ export default class TimerWrapper extends Component {
         this.state = {
             time : moment().format("HH:mm:ss"),
             config : {
+                size : this.props.size || 320,
                 showTime : typeof this.props.showTime === 'undefined' ? true : this.props.showTime,
-                messageStillTime : this.props.messageStillTime || 'No te quedes sin votar!',
-                messageOutOfTime : this.props.messageOutOfTime || 'Se acabó el tiempo para votar.'
+                messageStillTime : this.props.messageStillTime || '',
+                messageOutOfTime : this.props.messageOutOfTime || ''
             }
         }
     }
@@ -58,7 +59,7 @@ export default class TimerWrapper extends Component {
             <div className="row" style={{marginTop : 32}}>
                 <div className="col s12 center-align timer-ui">
                     <Timer
-                        size={320}
+                        size={this.state.config.size}
                         startTime={this.props.startTime}
                         endTime={this.props.endTime}/>
                     {this.state.config.showTime ? 'Son las {state.time}.' : ''}
@@ -76,5 +77,6 @@ TimerWrapper.propTypes = {
     endTime : PropTypes.string.isRequired,
     messageStillTime : PropTypes.string,
     messageOutOfTime : PropTypes.string,
-    showTime : PropTypes.bool
+    showTime : PropTypes.bool,
+    size : PropTypes.number
 };

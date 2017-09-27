@@ -65,7 +65,18 @@ class App extends Component {
                 </div>
             }
             if (now.isSameOrAfter(startVote)) {
-                return this.__withLogoutButton(<Poll/>);
+                return <div>
+                    {this.__logoutButton()}
+                    <TimerWrapper
+                        startTime={startVote}
+                        endTime={startResults}
+                        showTime={false}
+                        size={240}
+                        messageStillTime="No te quedes sin votar!"
+                        messageOutOfTime="La votación ha terminado"
+                    />
+                    <Poll/>
+                </div>;
             }
             if (now.isSameOrAfter(startConsolidate)) {
                 if (this.isValidUser()) {

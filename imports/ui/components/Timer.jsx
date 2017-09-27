@@ -133,7 +133,7 @@ export default class Timer extends Component {
                 height : size,
                 borderRadius : `${size / 2}px`
             }}/>
-            <div className="timer-label" style={{
+            <div className={`timer-label timer-label-${size}`} style={{
                 width : size / 2,
                 height : size / 2,
                 top : size / 2 - size / 4,
