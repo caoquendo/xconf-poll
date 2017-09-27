@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import {Meteor} from 'meteor/meteor';
 
+import XconfCard from "./XconfCard";
+
 export default class Login extends Component {
 
     __onClick = (event) => {
@@ -14,37 +16,30 @@ export default class Login extends Component {
     };
 
     render() {
-        return <div className="row">
-            <div className="col s12 m7">
-                <div className="card ">
-                    <div className="card-image">
-                        <img src="images/logo.svg"/>
-                    </div>
-                    <div className="card-content">
-                        <span className="card-title xconf">Por favor identifícate para continuar.</span>
-                        <form className="login-form">
-                            <div className="input-field">
-                                <input type="text" ref="nameInput"/>
-                                <label>
-                                    Nombre
-                                    <small>(Como aparece en tu identificación)</small>
-                                </label>
-                            </div>
-                            <div className="input-field">
-                                <input type="text" maxLength="6" ref="ticketCodeInput"/>
-                                <label>
-                                    Código del Boleto
-                                    <small>(El número de 6 dígitos)</small>
-                                </label>
-                            </div>
-
-                            <button className="pink lighten-1 waves-effect waves-light btn" type="submit" onClick={this.__onClick.bind(this)}>
-                                Continuar
-                            </button>
-                        </form>
-                    </div>
+        let loginContent = <div>
+            <span className="card-title xconf">Por favor identifícate para continuar.</span>
+            <form className="login-form">
+                <div className="input-field">
+                    <input type="text" ref="nameInput"/>
+                    <label>
+                        Nombre
+                        <small>(Como aparece en tu identificación)</small>
+                    </label>
                 </div>
-            </div>
+                <div className="input-field">
+                    <input type="text" maxLength="6" ref="ticketCodeInput"/>
+                    <label>
+                        Código del Boleto
+                        <small>(El número de 6 dígitos)</small>
+                    </label>
+                </div>
+
+                <button className="pink lighten-1 waves-effect waves-light btn" type="submit"
+                        onClick={this.__onClick.bind(this)}>
+                    Continuar
+                </button>
+            </form>
         </div>;
+        return <XconfCard content={loginContent}/>;
     }
 }
