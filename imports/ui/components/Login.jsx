@@ -21,22 +21,24 @@ export default class Login extends Component {
         const ticketCode = ReactDOM.findDOMNode(this.refs.ticketCodeInput).value.trim();
 
         Meteor.loginWithPassword(name, ticketCode, (params) => {
-            console.log(params);
-            if (params.error === 400) {
-                this.setState({
-                    errors : "Ingresa tu nombre y el código de tu boleto"
-                });
-            } else if (params.error === 403) {
-                this.setState({
-                    errors : "Verifica tu nombre y el código de tu boleto"
-                });
+            if (params) {
+                let errors = "";
+                switch (params.error) {
+                    case 400:
+                        errors = "Ingresa tu nombre y el código de tu boleto";
+                        break;
+                    case 403:
+                        errors = "Verifica tu nombre y el código de tu boleto";
+                        break;
+                }
+                this.setState({errors});
             }
         });
     };
 
     render() {
-        let loginContent = <div>
-            <span className="card-title xconf">Por favor identifícate para continuar.</span>
+        return <div>
+            <span className="card-title xconf-title">Por favor identifícate para continuar.</span>
             <form className="login-form">
                 <div className="input-field">
                     <input type="text" ref="nameInput"/>
@@ -57,7 +59,7 @@ export default class Login extends Component {
 
                 <div className="row">
                     <div className="col s12">
-                        <button className="pink lighten-1 waves-effect waves-light btn right" type="submit"
+                        <button className="pink lighten-1 waves-effect waves-light btn-large right" type="submit"
                                 onClick={this.__onLoginClicked.bind(this)}>
                             Continuar
                         </button>
@@ -65,6 +67,5 @@ export default class Login extends Component {
                 </div>
             </form>
         </div>;
-        return <XconfCard content={loginContent}/>;
     }
 }

@@ -10,6 +10,7 @@ import Topics from "./components/Topics";
 import Poll from "./components/Poll";
 import NonAvailable from "./components/NonAvailable";
 import TimerWrapper from "./components/TimerWrapper";
+import XconfCard from "./components/XconfCard";
 
 const moment = require('moment');
 
@@ -43,7 +44,7 @@ class App extends Component {
     Resultados -> 16:40 -> 20:00
     */
 
-    __render() {
+    __getContent() {
         const now = this.state.time;
         const date = '2017-09-30';
         const startCreateTopics = date + ' 10:50';
@@ -58,7 +59,10 @@ class App extends Component {
 
         if (this.props.currentUser) {
             if (now.isSameOrAfter(startResults)) {
-                return this.__withLogoutButton(<Results/>);
+                return <div>
+                    {this.__logoutButton()}
+                    <Results/>
+                </div>
             }
             if (now.isSameOrAfter(startVote)) {
                 return this.__withLogoutButton(<Poll/>);
@@ -91,10 +95,10 @@ class App extends Component {
         </div>
     }
 
-    __withLogoutButton(component) {
+    __withLogoutButton(component, startTime, endTime) {
         return <div>
             {this.__logoutButton()}
-            {this.__withTimerAfter(component)}
+            {this.__withTimerAfter(component, startTime, endTime)}
         </div>
     }
 
@@ -113,7 +117,7 @@ class App extends Component {
     }
 
     render() {
-        return this.__render();
+        return <XconfCard content={this.__getContent()}/>;
     }
 }
 

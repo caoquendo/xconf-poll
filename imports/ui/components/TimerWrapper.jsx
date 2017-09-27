@@ -55,7 +55,7 @@ export default class TimerWrapper extends Component {
 
     render() {
         return (
-            <div className="row">
+            <div className="row" style={{marginTop : 32}}>
                 <div className="col s12 center-align timer-ui">
                     <Timer
                         size={320}

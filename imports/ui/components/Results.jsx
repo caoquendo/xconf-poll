@@ -10,6 +10,11 @@ class Results extends Component {
     render() {
         return <div>
             <div className="row">
+                <div className="col s12 xconf-title" style={{textAlign : 'left'}}>
+                    Los temas seleccionados por mayoría de votos son:
+                </div>
+            </div>
+            <div className="row">
                 {this.props.consolidatedTopics.map((topic, index) => {
                     return <ResultItem key={topic._id} topic={topic} index={index}/>
                 })}
@@ -19,12 +24,12 @@ class Results extends Component {
 }
 
 Results.propTypes = {
-    consolidatedTopics: PropTypes.array.isRequired
+    consolidatedTopics : PropTypes.array.isRequired
 };
 
 export default createContainer(() => {
     Meteor.subscribe('consolidatedTopics');
     return {
-        consolidatedTopics: ConsolidatedTopics.find({}, {sort: {votes: -1}}).fetch()
+        consolidatedTopics : ConsolidatedTopics.find({}, {sort : {votes : -1}}).fetch()
     };
 }, Results);

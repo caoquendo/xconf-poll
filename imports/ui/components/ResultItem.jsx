@@ -13,12 +13,13 @@ export default class ResultItem extends Component {
             <div className="col s12">
                 <div className="card">
                     <div className={className}>
+                        <span className="chip right vote-count deep-purple lighten-3">
+                                {topic.votes ? topic.votes : 0} voto{topic.votes === 1 ? '' : 's'}
+                                </span>
                             <span className="card-title pink-text text-lighten-1">
-                                {topic.conference}
+                                <h5>{topic.conference}</h5>
                                 </span>
-                        <span className="new badge deep-purple lighten-3" data-badge-caption="votos">
-                                {topic.votes ? topic.votes : 0}
-                                </span>
+
                         {topic.text}
                     </div>
                 </div>

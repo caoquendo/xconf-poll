@@ -17,22 +17,12 @@ export default class ErrorMessage extends Component {
         });
     }
 
-    __onClick = (event) => {
-        event.preventDefault();
-        this.setState({visible : false});
-    };
-
     render() {
         return this.state.visible ? (
             <div className="row">
-                <div className="col s12 card-panel red darken-1 white-text"
+                <div className="col s12 card-panel red darken-1 white-text center-align"
                      style={{padding : 8}}>
-                    <div className="left" style={{marginTop : 6}}>{this.props.message}</div>
-                    <a href="#" onClick={this.__onClick.bind(this)}
-                       style={{marginTop : 8}}
-                       className="right white-text waves-effect waves-light btn-flat">
-                        x
-                    </a>
+                    {this.props.message}
                 </div>
             </div>
         ) : null;

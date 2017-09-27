@@ -8,10 +8,8 @@ class XconfCard extends Component {
     __navBar() {
         if (this.props.currentUser) {
             return (<nav>
-                <div className="nav-wrapper deep-purple lighten-4">
-                    <a href="#" className="brand-logo">
-                        Hola {this.props.currentUser.username}
-                    </a>
+                <div className="nav-wrapper deep-purple lighten-4 center-align">
+                    Hola <strong>{this.props.currentUser.username}</strong>
                 </div>
             </nav>);
         }
@@ -24,7 +22,7 @@ class XconfCard extends Component {
 
                     {this.__navBar()}
 
-                    <div className="card-image" style={{marginTop: 16}}>
+                    <div className="card-image" style={{marginTop : 16}}>
                         <img src="images/logo.svg"/>
                     </div>
                     <div className="card-content">
@@ -37,12 +35,12 @@ class XconfCard extends Component {
 }
 
 XconfCard.propTypes = {
-    currentUser: PropTypes.object,
-    content: PropTypes.element.isRequired
+    currentUser : PropTypes.object,
+    content : PropTypes.element.isRequired
 };
 
 export default createContainer(() => {
     return {
-        currentUser: Meteor.user()
+        currentUser : Meteor.user()
     };
 }, XconfCard);
