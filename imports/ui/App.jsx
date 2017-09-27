@@ -56,24 +56,20 @@ class App extends Component {
         }
 
         if (this.props.currentUser) {
-            let btn = (<button type="submit" onClick={this.__onClick.bind(this)}>
-                Bye
-            </button>);
-            let button = this.isValidUser() ? btn : null;
             if (now.isSameOrAfter(startResults)) {
-                return <div>{button}<Results/></div>
+                return <div>{this.__logoutButton()}<Results/></div>
             }
             if (now.isSameOrAfter(startVote)) {
-                return <Poll/>
+                return <div>{this.__logoutButton()}<Poll/></div>
             }
             if (now.isSameOrAfter(startConsolidate)) {
                 if (this.isValidUser()) {
-                    return <Consolidate/>
+                    return <div>{this.__logoutButton()}<Consolidate/></div>
                 }
-                return <ConsolidateWait/>;
+                return <div>{this.__logoutButton()}<ConsolidateWait/></div>;
             }
             if (now.isSameOrAfter(startCreateTopics)) {
-                return <Topics/>
+                return <div>{this.__logoutButton()}<Topics/></div>
             }
         }
         return <Login/>
@@ -82,6 +78,15 @@ class App extends Component {
     isValidUser() {
         let arr = ['Luz Unda', 'C3'];
         return arr.indexOf(this.props.currentUser.username) !== -1;
+    }
+
+    __logoutButton() {
+        let button = (<button type="submit"
+                              className="waves-effect waves-light btn pink lighten-2"
+                              onClick={this.__onClick.bind(this)}>
+            Bye
+        </button>);
+        return this.isValidUser() ? button : null;
     }
 
     render() {
