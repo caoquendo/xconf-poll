@@ -6,6 +6,7 @@ import Login from "./components/Login";
 import Consolidate from './components/Consolidate';
 import Results from './components/Results';
 import Topics from "./components/Topics";
+import Poll from "./components/Poll";
 
 class App extends Component {
     __onClick = (event) => {
@@ -14,6 +15,14 @@ class App extends Component {
         Meteor.logout();
     };
 
+    /*
+        30-09-2017
+    Crear topics: 10:50 -> 15:45
+    Consolidacion: 15:45 -> 16:15
+    Votacion: 16:15 -> 16:40
+    Resultados -> > 16:40
+    */
+
     render() {
         return this.props.currentUser ?
             <div>
@@ -21,7 +30,8 @@ class App extends Component {
                 <button type="submit" onClick={this.__onClick.bind(this)}>
                     Bye
                 </button>
-                <Results/>
+                <Poll/>
+                {/*<Results/>*/}
                 {/*<Consolidate/>*/}
             </div> :
             <Login/>;
