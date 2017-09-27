@@ -17,7 +17,10 @@ export default class ResultItem extends Component {
                 <div className="card">
                     <div className="card-content">
                         <span className="card-title pink-text text-lighten-1">{topic.conference}</span>
-                        <button onClick={this.__onClick.bind(this)}>+1</button>
+                        <button onClick={this.__onClick.bind(this)}
+                                className="waves-effect waves-light btn pink lighten-2">
+                            +1
+                        </button>
                         {topic.text}
                     </div>
                 </div>
