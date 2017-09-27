@@ -9,7 +9,7 @@ import Results from './components/Results';
 import Topics from "./components/Topics";
 import Poll from "./components/Poll";
 import NonAvailable from "./components/NonAvailable";
-import Timer from "./components/Timer";
+import TimerWrapper from "./components/TimerWrapper";
 
 const moment = require('moment');
 
@@ -82,14 +82,19 @@ class App extends Component {
         }
         return <div>
             {component}
-            <Timer startTime={startTime} endTime={endTime}/>
+            <TimerWrapper
+                startTime={startTime}
+                endTime={endTime}
+                showTime={false}
+                messageStillTime="En poco tiempo podrás ingresar para proponer tus temas"
+            />
         </div>
     }
 
     __withLogoutButton(component) {
         return <div>
             {this.__logoutButton()}
-            {this.__withTimer(component)}
+            {this.__withTimerAfter(component)}
         </div>
     }
 

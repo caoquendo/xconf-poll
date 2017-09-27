@@ -19,7 +19,7 @@ class XconfCard extends Component {
 
     render() {
         return <div className="row">
-            <div className="col s12 m7">
+            <div className="col s12">
                 <div className="card ">
 
                     {this.__navBar()}

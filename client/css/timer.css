@@ -1,35 +1,31 @@
 .timer-wrapper {
-    width: 192px;
-    height: 192px;
     position: relative;
     background: white;
+    margin: 0 auto;
 }
 
 .timer-ghost {
-    width: 192px;
-    height: 192px;
     background: #786B94;
     border: solid 10px #494964;
     position: absolute;
     opacity: 0.15;
     z-index: 400;
-    border-radius: 125px;
+}
+
+.timer-label, .timer-label-outside {
+    color: #746693;
+    font-size: 32px;
+    text-align: center;
+    font-weight: bold;
 }
 
 .timer-label {
-    width: 96px;
-    height: 96px;
     background: white;
-    color: #746693;
     position: absolute;
-    top: calc(50% - 50px);
-    left: calc(50% - 50px);
     z-index: 401;
-    font-weight: bold;
     border-radius: 100%;
-    padding-top: calc(25% - 12px);
+    padding-top: calc(25% - 16px);
     padding-left: 5px;
-    font-size: 18px;
 }
 
 .pie {
@@ -42,13 +38,11 @@
 }
 
 .spinner {
-    border-radius: 125px 0 0 125px;
     z-index: 200;
     border-right: none;
 }
 
 .filler {
-    border-radius: 0 125px 125px 0;
     z-index: 100;
     border-left: none;
     left: 50%;

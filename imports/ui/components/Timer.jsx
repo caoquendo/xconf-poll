@@ -8,8 +8,36 @@ export default class Timer extends Component {
 
     constructor(props) {
         super(props);
+
+        this.setInitialState();
         let endTime = this.props.endTime;
+        setInterval(() => this.tickUpdate(endTime), 1000);
+    }
+
+    tickUpdate(endTime) {
+        let leftEndNow = moment.duration(moment(endTime).diff(moment()));
+
+        let secondsLeft = leftEndNow.asSeconds();
+        let hours = leftEndNow.hours();
+        let minutes = leftEndNow.minutes();
+        let seconds = leftEndNow.seconds();
+
+        if (leftEndNow <= 0) {
+            secondsLeft = hours = minutes = seconds = 0;
+        }
+
+        this.setNewState({
+            secondsLeft : secondsLeft,
+            hours : hours,
+            minutes : minutes,
+            seconds : seconds,
+            time : moment().format("HH:mm:ss")
+        });
+    }
+
+    setInitialState() {
         let startTime = this.props.startTime;
+        let endTime = this.props.endTime;
 
         let leftEndNow = moment.duration(moment(endTime).diff(moment()));
         let totalStartEnd = moment.duration(moment(endTime).diff(startTime));
@@ -25,35 +53,18 @@ export default class Timer extends Component {
         }
 
         this.state = {
-            totalSeconds: totalStartEnd.asSeconds(),
-            passed: passedStartNow.asSeconds(),
-            secondsLeft: secondsLeft,
-            hours: hours,
-            minutes: minutes,
-            seconds: seconds,
-            time: moment().format("HH:mm:ss")
-        };
-        setInterval(() => {
-            let leftEndNow = moment.duration(moment(endTime).diff(moment()));
-
-            let secondsLeft = leftEndNow.asSeconds();
-            let hours = leftEndNow.hours();
-            let minutes = leftEndNow.minutes();
-            let seconds = leftEndNow.seconds();
-
-            if (leftEndNow <= 0) {
-                secondsLeft = hours = minutes = seconds = 0;
+            totalSeconds : totalStartEnd.asSeconds(),
+            passed : passedStartNow.asSeconds(),
+            secondsLeft : secondsLeft,
+            hours : hours,
+            minutes : minutes,
+            seconds : seconds,
+            time : moment().format("HH:mm:ss"),
+            config : {
+                size : this.props.size || 192,
+                labelInside : typeof this.props.labelInside === 'undefined' ? true : this.props.labelInside
             }
-
-            this.setNewState({
-                secondsLeft: secondsLeft,
-                hours: hours,
-                minutes: minutes,
-                seconds: seconds,
-                time: moment().format("HH:mm:ss")
-            });
-
-        }, 1000);
+        }
     }
 
     setNewState(newVals) {
@@ -70,47 +81,73 @@ export default class Timer extends Component {
         return padded;
     }
 
-    __timeLeftToVote() {
-        return this.state.secondsLeft > 0 ? 'No te quedes sin votar!' : 'Se acabó el tiempo para votar.';
-    }
-
     render() {
         const state = this.state;
         const totalSeconds = Math.floor(state.totalSeconds);
+        const timer = `${this.formatTimePart(state.hours)}:${this.formatTimePart(state.minutes)}:${this.formatTimePart(state.seconds)}`;
+        const size = this.state.config.size;
+        const secondsPassed = this.state.passed;
+
+        if (this.state.config.labelInside) {
+            return this.__timer(size, totalSeconds, secondsPassed, timer);
+        }
+
         return (
-            <div className="row valign-wrapper">
-                <div className="col s6">
-                    <div className="timer-wrapper">
-                        <div className="spinner pie" style={{
-                            animation: `rota ${totalSeconds}s linear infinite`,
-                            animationDelay: `-${this.state.passed}s`,
-                            animationIterationCount: 1
-                        }}/>
-                        <div className="filler pie" style={{
-                            animation: `fill ${totalSeconds}s steps(1, end) infinite`,
-                            animationDelay: `-${this.state.passed}s`,
-                            animationIterationCount: 1
-                        }}/>
-                        <div className="mask" style={{
-                            animation: `mask ${totalSeconds}s steps(1, end) infinite`,
-                            animationDelay: `-${this.state.passed}s`,
-                            animationIterationCount: 1
-                        }}/>
-                        <div className="timer-ghost"/>
-                        <div className="timer-label">
-                            {this.formatTimePart(state.hours)}:{this.formatTimePart(state.minutes)}:{this.formatTimePart(state.seconds)}
-                        </div>
-                    </div>
-                </div>
-                <div className="col s6">
-                    Son las {state.time}. {this.__timeLeftToVote()}
-                </div>
+            <div>
+                {this.__timer(size, totalSeconds, secondsPassed, timer)}
+                {this.__labelOutside(size, timer)}
             </div>
         );
+    }
+
+    __labelOutside(size, timer) {
+        return <div className="timer-label-outside" style={{width : size}}>
+            {timer}
+        </div>;
+    }
+
+    __timer(size, totalSeconds, secondsPassed, timer) {
+        return <div className="timer-wrapper" style={{
+            width : size,
+            height : size
+        }}>
+            <div className="spinner pie" style={{
+                animation : `rota ${totalSeconds}s linear infinite`,
+                animationDelay : `-${secondsPassed}s`,
+                animationIterationCount : 1,
+                borderRadius : `${size / 2}px 0 0 ${size / 2}px`
+            }}/>
+            <div className="filler pie" style={{
+                animation : `fill ${totalSeconds}s steps(1, end) infinite`,
+                animationDelay : `-${secondsPassed}s`,
+                animationIterationCount : 1,
+                borderRadius : `0 ${size / 2}px ${size / 2}px 0`
+            }}/>
+            <div className="mask" style={{
+                animation : `mask ${totalSeconds}s steps(1, end) infinite`,
+                animationDelay : `-${secondsPassed}s`,
+                animationIterationCount : 1
+            }}/>
+            <div className="timer-ghost" style={{
+                width : size,
+                height : size,
+                borderRadius : `${size / 2}px`
+            }}/>
+            <div className="timer-label" style={{
+                width : size / 2,
+                height : size / 2,
+                top : size / 2 - size / 4,
+                left : size / 2 - size / 4
+            }}>
+                {this.state.config.labelInside ? timer : ''}
+            </div>
+        </div>;
     }
 }
 
 Timer.propTypes = {
-    startTime: PropTypes.string.isRequired,
-    endTime: PropTypes.string.isRequired
+    startTime : PropTypes.string.isRequired,
+    endTime : PropTypes.string.isRequired,
+    size : PropTypes.number,
+    labelInside : PropTypes.bool
 };
