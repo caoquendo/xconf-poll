@@ -25,13 +25,13 @@ export default class Timer extends Component {
         }
 
         this.state = {
-            totalSeconds : totalStartEnd.asSeconds(),
-            passed       : passedStartNow.asSeconds(),
-            secondsLeft  : secondsLeft,
-            hours        : hours,
-            minutes      : minutes,
-            seconds      : seconds,
-            time         : moment().format("HH:mm:ss")
+            totalSeconds: totalStartEnd.asSeconds(),
+            passed: passedStartNow.asSeconds(),
+            secondsLeft: secondsLeft,
+            hours: hours,
+            minutes: minutes,
+            seconds: seconds,
+            time: moment().format("HH:mm:ss")
         };
         setInterval(() => {
             let leftEndNow = moment.duration(moment(endTime).diff(moment()));
@@ -46,11 +46,11 @@ export default class Timer extends Component {
             }
 
             this.setNewState({
-                secondsLeft : secondsLeft,
-                hours       : hours,
-                minutes     : minutes,
-                seconds     : seconds,
-                time        : moment().format("HH:mm:ss")
+                secondsLeft: secondsLeft,
+                hours: hours,
+                minutes: minutes,
+                seconds: seconds,
+                time: moment().format("HH:mm:ss")
             });
 
         }, 1000);
@@ -78,24 +78,23 @@ export default class Timer extends Component {
         const state = this.state;
         const totalSeconds = Math.floor(state.totalSeconds);
         return (
-            <div className="row">
-                <div className="col s8">
-                    Son las {state.time}. {this.__timeLeftToVote()}
+            <div className="row valign-wrapper">
+                <div className="col s6">
                     <div className="timer-wrapper">
                         <div className="spinner pie" style={{
-                            animation               : `rota ${totalSeconds}s linear infinite`,
-                            animationDelay          : `-${this.state.passed}s`,
-                            animationIterationCount : 1
+                            animation: `rota ${totalSeconds}s linear infinite`,
+                            animationDelay: `-${this.state.passed}s`,
+                            animationIterationCount: 1
                         }}/>
                         <div className="filler pie" style={{
-                            animation               : `fill ${totalSeconds}s steps(1, end) infinite`,
-                            animationDelay          : `-${this.state.passed}s`,
-                            animationIterationCount : 1
+                            animation: `fill ${totalSeconds}s steps(1, end) infinite`,
+                            animationDelay: `-${this.state.passed}s`,
+                            animationIterationCount: 1
                         }}/>
                         <div className="mask" style={{
-                            animation               : `mask ${totalSeconds}s steps(1, end) infinite`,
-                            animationDelay          : `-${this.state.passed}s`,
-                            animationIterationCount : 1
+                            animation: `mask ${totalSeconds}s steps(1, end) infinite`,
+                            animationDelay: `-${this.state.passed}s`,
+                            animationIterationCount: 1
                         }}/>
                         <div className="timer-ghost"/>
                         <div className="timer-label">
@@ -103,12 +102,15 @@ export default class Timer extends Component {
                         </div>
                     </div>
                 </div>
+                <div className="col s6">
+                    Son las {state.time}. {this.__timeLeftToVote()}
+                </div>
             </div>
         );
     }
 }
 
 Timer.propTypes = {
-    startTime : PropTypes.string.isRequired,
-    endTime   : PropTypes.string.isRequired
+    startTime: PropTypes.string.isRequired,
+    endTime: PropTypes.string.isRequired
 };

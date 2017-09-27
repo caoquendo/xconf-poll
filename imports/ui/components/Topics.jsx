@@ -34,14 +34,16 @@ class Topics extends Component {
             <p>Puedes hacer tantos envíos como quieras.</p>
             <form className="topic-form">
                 <div className="input-field">
-                    <textarea className="materialize-textarea" ref="topicTextarea"></textarea>
+                    <textarea className="materialize-textarea" ref="topicTextarea"/>
                     <label>
                         Tema, pregunta o idea
                     </label>
                 </div>
                 <div className="input-field">
-                    <select className="conference-select" ref={(input) => this.__conferenceSelect = input }>
-                        <option value="" disabled selected>Selecciona...</option>
+                    <select className="conference-select"
+                            defaultValue={''}
+                            ref={(input) => this.__conferenceSelect = input}>
+                        <option value="" disabled>Selecciona...</option>
                         {this.props.conferences.map((conference) => {
                             return <option
                                 key={conference._id}
@@ -56,7 +58,8 @@ class Topics extends Component {
                     </label>
                 </div>
 
-                <button className="pink lighten-1 waves-effect waves-light btn" type="submit" onClick={this.__onClick.bind(this)}>
+                <button className="pink lighten-1 waves-effect waves-light btn" type="submit"
+                        onClick={this.__onClick.bind(this)}>
                     Enviar
                 </button>
             </form>

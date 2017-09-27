@@ -10,7 +10,7 @@ import Timer from "./Timer";
 class Results extends Component {
     render() {
         return <div>
-            <Timer startTime="2017-09-26 17:30" endTime="2017-09-26 18:41"/>
+            <Timer startTime={this.props.startTime} endTime={this.props.endTime}/>
             <div className="row">
                 {this.props.consolidatedTopics.map((topic, index) => {
                     return <ResultItem key={topic._id} topic={topic} index={index}/>
@@ -21,12 +21,14 @@ class Results extends Component {
 }
 
 Results.propTypes = {
-    consolidatedTopics : PropTypes.array.isRequired
+    consolidatedTopics: PropTypes.array.isRequired,
+    startTime: PropTypes.string.isRequired,
+    endTime: PropTypes.string.isRequired
 };
 
 export default createContainer(() => {
     Meteor.subscribe('consolidatedTopics');
     return {
-        consolidatedTopics : ConsolidatedTopics.find({}, {sort : {votes : -1}}).fetch()
+        consolidatedTopics: ConsolidatedTopics.find({}, {sort: {votes: -1}}).fetch()
     };
 }, Results);

@@ -44,7 +44,7 @@ class App extends Component {
 
     __render() {
         const now = this.state.time;
-        let date = '2017-09-30';
+        const date = '2017-09-30';
         const startCreateTopics = date + ' 10:50';
         const startConsolidate = date + ' 15:45';
         const startVote = date + ' 16:15';
@@ -57,7 +57,9 @@ class App extends Component {
 
         if (this.props.currentUser) {
             if (now.isSameOrAfter(startResults)) {
-                return <div>{this.__logoutButton()}<Results/></div>
+                return <div>{this.__logoutButton()}
+                    <Results startTime={startVote} endTime={endAll}/>
+                </div>
             }
             if (now.isSameOrAfter(startVote)) {
                 return <div>{this.__logoutButton()}<Poll/></div>
