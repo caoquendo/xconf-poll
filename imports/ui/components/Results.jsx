@@ -5,12 +5,10 @@ import {createContainer} from 'meteor/react-meteor-data';
 
 import {ConsolidatedTopics} from '../../api/consolidatedTopics.js';
 import ResultItem from "./ResultItem";
-import Timer from "./Timer";
 
 class Results extends Component {
     render() {
         return <div>
-            <Timer startTime={this.props.startTime} endTime={this.props.endTime}/>
             <div className="row">
                 {this.props.consolidatedTopics.map((topic, index) => {
                     return <ResultItem key={topic._id} topic={topic} index={index}/>
@@ -21,9 +19,7 @@ class Results extends Component {
 }
 
 Results.propTypes = {
-    consolidatedTopics: PropTypes.array.isRequired,
-    startTime: PropTypes.string.isRequired,
-    endTime: PropTypes.string.isRequired
+    consolidatedTopics: PropTypes.array.isRequired
 };
 
 export default createContainer(() => {

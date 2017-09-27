@@ -9,6 +9,7 @@ import Results from './components/Results';
 import Topics from "./components/Topics";
 import Poll from "./components/Poll";
 import NonAvailable from "./components/NonAvailable";
+import Timer from "./components/Timer";
 
 const moment = require('moment');
 
@@ -18,12 +19,12 @@ class App extends Component {
         super(props);
 
         this.state = {
-            time: moment()
+            time : moment()
         };
 
         setInterval(() => {
             this.setState({
-                time: moment()
+                time : moment()
             });
         });
     }
@@ -52,29 +53,44 @@ class App extends Component {
         const endAll = date + ' 20:00';
 
         if (now.isBefore(startCreateTopics) || now.isAfter(endAll)) {
-            return <NonAvailable/>
+            return this.__withTimerAfter(<NonAvailable/>, null, startCreateTopics);
         }
 
         if (this.props.currentUser) {
             if (now.isSameOrAfter(startResults)) {
-                return <div>{this.__logoutButton()}
-                    <Results startTime={startVote} endTime={endAll}/>
-                </div>
+                return this.__withLogoutButton(<Results/>);
             }
             if (now.isSameOrAfter(startVote)) {
-                return <div>{this.__logoutButton()}<Poll/></div>
+                return this.__withLogoutButton(<Poll/>);
             }
             if (now.isSameOrAfter(startConsolidate)) {
                 if (this.isValidUser()) {
-                    return <div>{this.__logoutButton()}<Consolidate/></div>
+                    return this.__withLogoutButton(<Consolidate/>);
                 }
-                return <div>{this.__logoutButton()}<ConsolidateWait/></div>;
+                return this.__withLogoutButton(<ConsolidateWait/>);
             }
             if (now.isSameOrAfter(startCreateTopics)) {
-                return <div>{this.__logoutButton()}<Topics/></div>
+                return this.__withLogoutButton(<Topics/>);
             }
         }
         return <Login/>
+    }
+
+    __withTimerAfter(component, startTime, endTime) {
+        if (startTime === null) {
+            startTime = moment().format("YYYY-MM-DD HH:mm:ss")
+        }
+        return <div>
+            {component}
+            <Timer startTime={startTime} endTime={endTime}/>
+        </div>
+    }
+
+    __withLogoutButton(component) {
+        return <div>
+            {this.__logoutButton()}
+            {this.__withTimer(component)}
+        </div>
     }
 
     isValidUser() {
@@ -97,11 +113,11 @@ class App extends Component {
 }
 
 App.propTypes = {
-    currentUser: PropTypes.object
+    currentUser : PropTypes.object
 };
 
 export default createContainer(() => {
     return {
-        currentUser: Meteor.user()
+        currentUser : Meteor.user()
     };
 }, App);
