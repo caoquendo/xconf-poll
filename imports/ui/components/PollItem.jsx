@@ -5,14 +5,14 @@ import classnames from 'classnames';
 
 export default class ResultItem extends Component {
 
-    __onPositiveVote = (event) => {
+    __onUpVote = (event) => {
         event.preventDefault();
-        this.props.onPositiveVote(this.props.topic._id);
+        this.props.onUpVote(this.props.topic._id);
     };
 
-    __onNegativeVote = (event) => {
+    __onDownVote = (event) => {
         event.preventDefault();
-        this.props.onNegativeVote(this.props.topic._id, this.props.vote._id);
+        this.props.onDownVote(this.props.topic._id, this.props.vote._id);
     };
 
     render() {
@@ -20,14 +20,19 @@ export default class ResultItem extends Component {
         const alreadyVoted = !!this.props.vote;
 
         let button = alreadyVoted ?
-            <button onClick={this.__onNegativeVote.bind(this)}
+            <button onClick={this.__onDownVote.bind(this)}
                     className="waves-effect waves-light btn gray lighten-2">
                 -1
             </button> :
-            <button onClick={this.__onPositiveVote.bind(this)}
+            this.props.canUpVote ?
+                <button onClick={this.__onUpVote.bind(this)}
+                        className="waves-effect waves-light btn pink lighten-2">
+                    +1
+                </button> :
+                <button disabled
                     className="waves-effect waves-light btn pink lighten-2">
-                +1
-            </button>;
+                    +1
+                </button>;
 
         return (
             <div className="col s12">
@@ -46,7 +51,8 @@ export default class ResultItem extends Component {
 ResultItem.propTypes = {
     topic: PropTypes.object.isRequired,
     index: PropTypes.number.isRequired,
-    onPositiveVote: PropTypes.func.isRequired,
-    onNegativeVote: PropTypes.func.isRequired,
-    vote: PropTypes.object
+    onUpVote: PropTypes.func.isRequired,
+    onDownVote: PropTypes.func.isRequired,
+    vote: PropTypes.object,
+    canUpVote: PropTypes.bool.isRequired
 };
