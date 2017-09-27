@@ -29,6 +29,7 @@ export default class ErrorMessage extends Component {
                      style={{padding : 8}}>
                     <div className="left" style={{marginTop : 6}}>{this.props.message}</div>
                     <a href="#" onClick={this.__onClick.bind(this)}
+                       style={{marginTop : 8}}
                        className="right white-text waves-effect waves-light btn-flat">
                         x
                     </a>

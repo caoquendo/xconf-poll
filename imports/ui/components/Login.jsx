@@ -26,7 +26,7 @@ export default class Login extends Component {
                 this.setState({
                     errors : "Ingresa tu nombre y el código de tu boleto"
                 });
-            } else if(params.error === 403) {
+            } else if (params.error === 403) {
                 this.setState({
                     errors : "Verifica tu nombre y el código de tu boleto"
                 });
@@ -55,10 +55,14 @@ export default class Login extends Component {
 
                 <ErrorMessage message={this.state.errors}/>
 
-                <button className="pink lighten-1 waves-effect waves-light btn" type="submit"
-                        onClick={this.__onLoginClicked.bind(this)}>
-                    Continuar
-                </button>
+                <div className="row">
+                    <div className="col s12">
+                        <button className="pink lighten-1 waves-effect waves-light btn right" type="submit"
+                                onClick={this.__onLoginClicked.bind(this)}>
+                            Continuar
+                        </button>
+                    </div>
+                </div>
             </form>
         </div>;
         return <XconfCard content={loginContent}/>;
