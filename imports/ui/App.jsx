@@ -54,7 +54,8 @@ class App extends Component {
         const endAll = date + ' 20:00';
 
         if (now.isBefore(startCreateTopics) || now.isAfter(endAll)) {
-            return this.__withTimerAfter(<NonAvailable/>, null, startCreateTopics);
+            return this.__withTimerAfter(
+                <NonAvailable/>, null, startCreateTopics, "En poco tiempo podrás ingresar para proponer tus temas");
         }
 
         if (this.props.currentUser) {
@@ -82,16 +83,16 @@ class App extends Component {
                 if (this.isValidUser()) {
                     return this.__withLogoutButton(<Consolidate/>);
                 }
-                return this.__withLogoutButton(<ConsolidateWait/>);
+                return this.__withLogoutButton(<ConsolidateWait/>, startConsolidate, startVote, "Pronto podrás votar por tus favoritos!");
             }
             if (now.isSameOrAfter(startCreateTopics)) {
-                return this.__withLogoutButton(<Topics/>);
+                return this.__withLogoutButton(<Topics/>, startCreateTopics, startConsolidate, "Puedes hacer tantos envíos como quieras antes de que se acabe el tiempo");
             }
         }
         return <Login/>
     }
 
-    __withTimerAfter(component, startTime, endTime) {
+    __withTimerAfter(component, startTime, endTime, message) {
         if (startTime === null) {
             startTime = moment().format("YYYY-MM-DD HH:mm:ss")
         }
@@ -101,15 +102,15 @@ class App extends Component {
                 startTime={startTime}
                 endTime={endTime}
                 showTime={false}
-                messageStillTime="En poco tiempo podrás ingresar para proponer tus temas"
+                messageStillTime={message}
             />
         </div>
     }
 
-    __withLogoutButton(component, startTime, endTime) {
+    __withLogoutButton(component, startTime, endTime, message) {
         return <div>
             {this.__logoutButton()}
-            {this.__withTimerAfter(component, startTime, endTime)}
+            {this.__withTimerAfter(component, startTime, endTime, message)}
         </div>
     }
 

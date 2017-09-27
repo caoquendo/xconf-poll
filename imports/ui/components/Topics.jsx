@@ -31,9 +31,8 @@ class Topics extends Component {
     }
 
     render() {
-        let content = <div>
-            <span className="card-title xconf">Indícanos sobre qué te gustaría hablar más en el Open Space al final del día.</span>
-            <p>Puedes hacer tantos envíos como quieras.</p>
+        return <div>
+            <span className="xconf-title">Indícanos sobre qué te gustaría hablar más en el Open Space al final del día.</span>
             <form className="topic-form">
                 <div className="input-field">
                     <textarea className="materialize-textarea" ref="topicTextarea"/>
@@ -60,19 +59,22 @@ class Topics extends Component {
                     </label>
                 </div>
 
-                <button className="pink lighten-1 waves-effect waves-light btn" type="submit"
-                        onClick={this.__onClick.bind(this)}>
-                    Enviar
-                </button>
+                <div className="row">
+                    <div className="col s12">
+                        <button className="pink lighten-1 waves-effect waves-light btn-large right" type="submit"
+                                onClick={this.__onClick.bind(this)}>
+                            Enviar
+                        </button>
+                    </div>
+                </div>
             </form>
         </div>;
-        return <XconfCard content={content}/>;
     }
 }
 
 Topics.propTypes = {
-    conferences: PropTypes.array.isRequired,
-    loading: PropTypes.bool.isRequired
+    conferences : PropTypes.array.isRequired,
+    loading : PropTypes.bool.isRequired
 };
 
 export default createContainer(() => {
@@ -80,7 +82,7 @@ export default createContainer(() => {
     const loading = !conferencesSubscription.ready();
 
     return {
-        conferences: Conferences.find({}, {sort: {name: 1}}).fetch(),
+        conferences : Conferences.find({}, {sort : {name : 1}}).fetch(),
         loading
     };
 }, Topics);

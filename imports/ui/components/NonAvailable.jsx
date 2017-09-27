@@ -7,7 +7,7 @@ import XconfCard from "./XconfCard";
 export default class NonAvailable extends Component {
 
     render() {
-        return <span className="card-title xconf">
+        return <span className="xconf-title">
                                 Por el momento no estamos disponibles
                             </span>;
     }

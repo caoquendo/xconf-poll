@@ -8,20 +8,18 @@ import XconfCard from "./XconfCard";
 class ConsolidateWait extends Component {
 
     render() {
-        let content = (<span className="card-title xconf">
+        return (<span className="xconf-title">
                                 Estamos consolidando los temas enviados.
-                                En pocos momentos podrás votar por tus favoritos!
                             </span>);
-        return <XconfCard content={content}/>;
     }
 }
 
 ConsolidateWait.propTypes = {
-    currentUser: PropTypes.object
+    currentUser : PropTypes.object
 };
 
 export default createContainer(() => {
     return {
-        currentUser: Meteor.user()
+        currentUser : Meteor.user()
     };
 }, ConsolidateWait);
