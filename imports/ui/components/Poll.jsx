@@ -42,7 +42,7 @@ class Poll extends Component {
 
     __votes() {
         let remainingVotes = this.props.maxVotes - (this.props.myVotes ? this.props.myVotes.length : 0);
-        if(remainingVotes === 0 ){
+        if (remainingVotes === 0) {
             return <span>Ya no tienes más votos :(</span>
         }
         return <span>Te queda{remainingVotes === 1 ? '' : 'n'} <strong>{remainingVotes} </strong>
@@ -83,7 +83,7 @@ export default createContainer(() => {
     Meteor.subscribe('votes');
 
     return {
-        consolidatedTopics : ConsolidatedTopics.find({}).fetch(),
+        consolidatedTopics : ConsolidatedTopics.find({}, {sort : {conference : 1}}).fetch(),
         myVotes : Votes.find({userId : Meteor.userId()}).fetch(),
         maxVotes : 3
     };

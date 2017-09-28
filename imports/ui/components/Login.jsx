@@ -30,6 +30,8 @@ export default class Login extends Component {
                     case 403:
                         errors = "Verifica que tu nombre o el código de tu boleto estén correctos.";
                         break;
+                    default:
+                        errors = "Ooops, hay un error desconocido. Refresca la página e intenta de nuevo.";
                 }
                 this.setState({errors});
             }

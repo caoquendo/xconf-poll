@@ -5,11 +5,16 @@ import {Meteor} from 'meteor/meteor'
 import {createContainer} from 'meteor/react-meteor-data';
 import {Conferences} from '../../api/conferences.js';
 
-import XconfCard from "./XconfCard";
-
 class Topics extends Component {
 
     __conferenceSelect = undefined;
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            errors : null
+        }
+    }
 
     __onClick = (event) => {
         event.preventDefault();
@@ -18,9 +23,15 @@ class Topics extends Component {
         const relatedConferenceName = this.__conferenceSelect.value;
 
         if (suggestedTopic !== '' && relatedConferenceName !== '') {
-            Meteor.call('topics.insert', relatedConferenceName, suggestedTopic);
+            Meteor.call('topics.insert', relatedConferenceName, suggestedTopic, (error, result) => {
+                if (!error) {
+                    alert("Tu sugerencia fue registrada");
+                    ReactDOM.findDOMNode(this.refs.topicTextarea).value = '';
+                } else {
+                    alert("Ocurrió un error inesperado. Vuelve a intentar.");
+                }
+            });
 
-            ReactDOM.findDOMNode(this.refs.topicTextarea).value = '';
         }
     };
 
@@ -52,7 +63,8 @@ class Topics extends Component {
                                 <small className="extra-details">
                                     <strong className="start-time">{conference.startTime} </strong>
                                     <span className="presenters">
-                                        -{conference.presenters.map((presenter) => <span key={presenter}> {presenter}</span>)}
+                                        -{conference.presenters.map((presenter) =>
+                                        <span key={presenter}> {presenter}</span>)}
                                     </span>
                                 </small>
                             </span>;
@@ -84,8 +96,8 @@ class Topics extends Component {
 }
 
 Topics.propTypes = {
-    conferences: PropTypes.array.isRequired,
-    loading: PropTypes.bool.isRequired
+    conferences : PropTypes.array.isRequired,
+    loading : PropTypes.bool.isRequired
 };
 
 export default createContainer(() => {
@@ -93,7 +105,7 @@ export default createContainer(() => {
     const loading = !conferencesSubscription.ready();
 
     return {
-        conferences: Conferences.find({}, {sort: {_id: 1}}).fetch(),
+        conferences : Conferences.find({}, {sort : {_id : 1}}).fetch(),
         loading
     };
 }, Topics);
