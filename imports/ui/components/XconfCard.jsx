@@ -9,7 +9,7 @@ class XconfCard extends Component {
         if (this.props.currentUser) {
             return (<nav>
                 <div className="nav-wrapper deep-purple lighten-4 center-align">
-                    Hola <strong>{this.props.currentUser.username}</strong>
+                    ¡Hola <strong>{this.props.currentUser.username}</strong>!
                 </div>
             </nav>);
         }
@@ -19,12 +19,12 @@ class XconfCard extends Component {
         return <div className="row">
             <div className="col s12">
                 <div className="card ">
-
                     {this.__navBar()}
 
-                    <div className="card-image" style={{marginTop : 16}}>
-                        <img src="images/logo.svg"/>
+                    <div className="card-header">
+                        <img src="images/logo.svg" className="xconf-logo"/>
                     </div>
+
                     <div className="card-content">
                         {this.props.content}
                     </div>

@@ -5,7 +5,6 @@ import {createContainer} from 'meteor/react-meteor-data';
 import {ConsolidatedTopics} from '../../api/consolidatedTopics.js';
 import {Votes} from '../../api/votes.js';
 import PollItem from "./PollItem";
-import Timer from "./Timer";
 
 class Poll extends Component {
 

@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Meteor} from 'meteor/meteor'
 import {createContainer} from 'meteor/react-meteor-data';
-
 import {ConsolidatedTopics} from '../../api/consolidatedTopics.js';
 import ResultItem from "./ResultItem";
 
@@ -11,7 +10,7 @@ class Results extends Component {
         return <div>
             <div className="row">
                 <div className="col s12 xconf-title" style={{textAlign : 'left'}}>
-                    Los temas seleccionados por mayoría de votos son:
+                    Estos son los temas seleccionados por mayoría de votos.
                 </div>
             </div>
             <div className="row">

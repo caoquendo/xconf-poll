@@ -1,14 +1,11 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
-import {Meteor} from 'meteor/meteor'
 import {createContainer} from 'meteor/react-meteor-data';
-import XconfCard from "./XconfCard";
 
 export default class NonAvailable extends Component {
 
     render() {
         return <span className="xconf-title">
-                                Por el momento no estamos disponibles
-                            </span>;
+            Por el momento no estamos disponibles.
+        </span>;
     }
 }

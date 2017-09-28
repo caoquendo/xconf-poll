@@ -25,10 +25,10 @@ export default class Login extends Component {
                 let errors = "";
                 switch (params.error) {
                     case 400:
-                        errors = "Ingresa tu nombre y el código de tu boleto";
+                        errors = "Ingresa tu nombre y el código de tu boleto.";
                         break;
                     case 403:
-                        errors = "Verifica tu nombre y el código de tu boleto";
+                        errors = "Verifica que tu nombre o el código de tu boleto estén correctos.";
                         break;
                 }
                 this.setState({errors});
@@ -50,7 +50,7 @@ export default class Login extends Component {
                 <div className="input-field">
                     <input type="text" maxLength="6" ref="ticketCodeInput"/>
                     <label>
-                        Código del Boleto
+                        Código de tu boleto
                         <small>(El número de 6 dígitos)</small>
                     </label>
                 </div>

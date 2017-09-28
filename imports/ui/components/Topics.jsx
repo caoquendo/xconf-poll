@@ -32,7 +32,7 @@ class Topics extends Component {
 
     render() {
         return <div>
-            <span className="xconf-title">Indícanos sobre qué te gustaría hablar más en el Open Space al final del día.</span>
+            <span className="xconf-title">Indícanos sobre que te gustaría hablar más en el Open Space al final del día.</span>
             <form className="topic-form">
                 <div className="input-field">
                     <textarea className="materialize-textarea" ref="topicTextarea"/>
