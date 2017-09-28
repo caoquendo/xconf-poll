@@ -136,7 +136,7 @@ class App extends Component {
                             endTime={startResults}
                             showTime={false}
                             size={240}
-                            messageStillTime="No te quedes sin votar!"
+                            messageStillTime="¡No te quedes sin votar!"
                             messageOutOfTime="La votación ha terminado"
                         />
                         <Poll/>

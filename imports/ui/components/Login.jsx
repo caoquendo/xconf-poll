@@ -18,7 +18,7 @@ export default class Login extends Component {
         event.preventDefault();
 
         const name = ReactDOM.findDOMNode(this.refs.nameInput).value.trim();
-        const ticketCode = ReactDOM.findDOMNode(this.refs.ticketCodeInput).value.trim();
+        const ticketCode = ReactDOM.findDOMNode(this.refs.ticketCodeInput).value.trim().toUpperCase();
 
         Meteor.loginWithPassword(name, ticketCode, (params) => {
             if (params) {
@@ -43,7 +43,7 @@ export default class Login extends Component {
                 <div className="input-field">
                     <input type="text" ref="nameInput"/>
                     <label>
-                        Nombre
+                        Nombre y Apellido
                         <small>(Como aparece en tu identificación)</small>
                     </label>
                 </div>
@@ -51,7 +51,7 @@ export default class Login extends Component {
                     <input type="text" maxLength="6" ref="ticketCodeInput"/>
                     <label>
                         Código de tu boleto
-                        <small>(El número de 6 dígitos)</small>
+                        <small>(El código de 6 caracteres)</small>
                     </label>
                 </div>
 
