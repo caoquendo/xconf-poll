@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Meteor} from 'meteor/meteor'
 import {createContainer} from 'meteor/react-meteor-data';
+
+import {Config} from '../api/config.js';
+
 import Login from "./components/Login";
 import Consolidate from './components/Consolidate';
 import ConsolidateWait from './components/ConsolidateWait';
@@ -20,14 +23,24 @@ class App extends Component {
         super(props);
 
         this.state = {
-            time : moment()
+            time: moment(),
+            config: null
         };
 
         setInterval(() => {
             this.setState({
-                time : moment()
+                time: moment()
             });
         });
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (!nextProps.loadingConfig) {
+            this.setState({
+                time: moment(),
+                config: nextProps.config
+            });
+        }
     }
 
     __onClick = (event) => {
@@ -36,63 +49,62 @@ class App extends Component {
         Meteor.logout();
     };
 
-    /*
-        30-09-2017
-    Crear topics: 10:50 -> 15:45
-    Consolidacion: 15:45 -> 16:15
-    Votacion: 16:15 -> 16:40
-    Resultados -> 16:40 -> 20:00
-    */
-
     __getContent() {
-        const now = this.state.time;
-        const date = '2017-09-30';
-        const startCreateTopics = date + ' 10:50';
-        const startConsolidate = date + ' 15:45';
-        const startVote = date + ' 16:15';
-        const startResults = date + ' 16:40';
-        const endAll = date + ' 20:00';
+        if (!this.props.loadingConfig) {
+            const now = this.state.time;
+            const config = this.state.config[0];
+            const date = config.date;
+            const startCreateTopics = date + ' ' + config.createTopics.start;
+            const startConsolidate = date + ' ' + config.consolidateTopics.start;
+            const startVote = date + ' ' + config.vote.start;
+            const startResults = date + ' ' + config.results.start;
+            const endAll = date + ' ' + config.results.end;
 
-        if (now.isBefore(startCreateTopics) || now.isAfter(endAll)) {
-            return this.__withTimerAfter(
-                <NonAvailable/>, null, startCreateTopics, "En poco tiempo podrás ingresar para proponer tus temas");
-        }
+            if (now.isBefore(startCreateTopics) || now.isAfter(endAll)) {
+                return this.__withTimerAfter(
+                    <NonAvailable/>, null, startCreateTopics, "En poco tiempo podrás ingresar para proponer tus temas");
+            }
 
-        if (this.props.currentUser) {
-            if (now.isSameOrAfter(startResults)) {
-                return <div>
-                    {this.__logoutButton()}
-                    <Results/>
-                </div>
-            }
-            if (now.isSameOrAfter(startVote)) {
-                return <div>
-                    {this.__logoutButton()}
-                    <TimerWrapper
-                        startTime={startVote}
-                        endTime={startResults}
-                        showTime={false}
-                        size={240}
-                        messageStillTime="No te quedes sin votar!"
-                        messageOutOfTime="La votación ha terminado"
-                    />
-                    <Poll/>
-                </div>;
-            }
-            if (now.isSameOrAfter(startConsolidate)) {
-                if (this.isValidUser()) {
-                   return <div>
+            if (this.props.currentUser) {
+                if (now.isSameOrAfter(startResults)) {
+                    return <div>
                         {this.__logoutButton()}
-                        <Consolidate/>
+                        <Results/>
                     </div>
                 }
-                return this.__withLogoutButton(<ConsolidateWait/>, startConsolidate, startVote, "Pronto podrás votar por tus favoritos!");
+                if (now.isSameOrAfter(startVote)) {
+                    return <div>
+                        {this.__logoutButton()}
+                        <TimerWrapper
+                            startTime={startVote}
+                            endTime={startResults}
+                            showTime={false}
+                            size={240}
+                            messageStillTime="No te quedes sin votar!"
+                            messageOutOfTime="La votación ha terminado"
+                        />
+                        <Poll/>
+                    </div>;
+                }
+                if (now.isSameOrAfter(startConsolidate)) {
+                    if (this.isValidUser()) {
+                        return <div>
+                            {this.__logoutButton()}
+                            <Consolidate/>
+                        </div>
+                    }
+                    return this.__withLogoutButton(
+                        <ConsolidateWait/>, startConsolidate, startVote, "Pronto podrás votar por tus favoritos!");
+                }
+                if (now.isSameOrAfter(startCreateTopics)) {
+                    return this.__withLogoutButton(
+                        <Topics/>, startCreateTopics, startConsolidate, "Puedes hacer tantos envíos como quieras antes de que se acabe el tiempo");
+                }
             }
-            if (now.isSameOrAfter(startCreateTopics)) {
-                return this.__withLogoutButton(<Topics/>, startCreateTopics, startConsolidate, "Puedes hacer tantos envíos como quieras antes de que se acabe el tiempo");
-            }
+            return <Login/>
+        } else {
+            return <div>Por favor espera mientras se carga todo</div>
         }
-        return <Login/>
     }
 
     __withTimerAfter(component, startTime, endTime, message) {
@@ -137,11 +149,17 @@ class App extends Component {
 }
 
 App.propTypes = {
-    currentUser : PropTypes.object
+    currentUser: PropTypes.object,
+    config: PropTypes.array,
+    loadingConfig: PropTypes.bool
 };
 
 export default createContainer(() => {
+    const configSubscription = Meteor.subscribe('config');
+    const loading = !configSubscription.ready();
     return {
-        currentUser : Meteor.user()
+        currentUser: Meteor.user(),
+        config: Config.find({}).fetch(),
+        loadingConfig: loading
     };
 }, App);

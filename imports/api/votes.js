@@ -25,9 +25,4 @@ Meteor.methods({
 
         Votes.remove(voteId);
     }
-    // 'votes.getForUser'(userId) {
-    //     check(userId, String);
-    //
-    //     return Votes.find({userId});
-    // },
 });
