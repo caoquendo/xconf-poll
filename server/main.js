@@ -21,12 +21,6 @@ Meteor.startup(() => {
         });
     }
 
-    if (Topics.find().count() === 0) {
-        JSON.parse(Assets.getText("topics.json")).topics.forEach((topic) => {
-            Topics.insert(topic);
-        });
-    }
-
     if (Configs.find().count() === 0) {
         JSON.parse(Assets.getText("config.json")).config.forEach((config) => {
             Configs.insert(config);

@@ -15,10 +15,10 @@
       "_id": "2",
       "date": "2017-09-28",
       "startAll": "08:30",
-      "createTopics": "11:50",
-      "consolidateTopics": "16:45",
-      "vote": "17:15",
-      "results": "17:40",
+      "createTopics": "13:00",
+      "consolidateTopics": "15:00",
+      "vote": "15:30",
+      "results": "17:00",
       "endAll": "22:00",
       "default": false
     }
