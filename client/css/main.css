@@ -20,14 +20,18 @@ input:focus, textarea:focus {
     margin-left: 8px;
 }
 
-.vote-button {
-    width: 164px;
-}
-
 .vote-count {
     font-size: 0.7rem;
     font-weight: bold;
     color: white;
+}
+
+.vote-icon {
+    width: 56px;
+}
+
+.vote-hint {
+    font-size: 0.8rem;
 }
 
 .xconf-title {

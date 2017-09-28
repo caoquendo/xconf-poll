@@ -20,19 +20,19 @@ export default class ResultItem extends Component {
         const alreadyVoted = !!this.props.vote;
 
         let button = alreadyVoted ?
-            <button onClick={this.__onDownVote.bind(this)}
-                    className="waves-effect waves-light btn-large gray lighten-2 right vote-button">
-                -1
-            </button> :
+            <a href="#" onClick={this.__onDownVote.bind(this)}
+                    className="waves-effect waves-light right">
+                <img src="images/star-filled.svg" className="vote-icon"/>
+            </a> :
             this.props.canUpVote ?
-                <button onClick={this.__onUpVote.bind(this)}
-                        className="waves-effect waves-light btn-large pink lighten-2 right vote-button">
-                    +1
-                </button> :
-                <button disabled
-                    className="waves-effect waves-light btn-large pink lighten-2 right vote-button">
-                    +1
-                </button>;
+                <a href="#" onClick={this.__onUpVote.bind(this)}
+                        className="waves-effect waves-light right">
+                    <img src="images/star-empty.svg" className="vote-icon"/>
+                </a> :
+                <a href="#" disabled
+                    className="waves-effect waves-light right">
+                    <img src="images/star-disabled.svg" className="vote-icon"/>
+                </a>;
 
         return (
             <div className="col s12">
