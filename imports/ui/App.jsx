@@ -26,7 +26,8 @@ class App extends Component {
         this.state = {
             time : moment(),
             config : null,
-            string : ''
+            string : '',
+            configLoaded : false
         };
 
         setInterval(() => {
@@ -43,10 +44,20 @@ class App extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (!nextProps.loadingConfig) {
+        if (!nextProps.loadingConfig /*&& !this.state.configLoaded*/) {
+            const today = moment().format("YYYY-MM-DD");
+            let configs = nextProps.config.filter(config => config.date === today);
+            let config;
+            if (configs.length === 1) {
+                config = configs[0];
+            } else if (configs.length === 0) {
+                config = nextProps.config.filter(config => config.default)[0];
+            }
+
             this.setNewState({
                 time : moment(),
-                config : nextProps.config
+                config : config,
+                configLoaded : true
             });
         }
     }
@@ -63,9 +74,6 @@ class App extends Component {
         let str = this.state.string;
         str += event.key;
         this.setNewState({string : str});
-        if (str === "^^vv<><>BA") {
-            console.log("!!!");
-        }
     }
 
     __onLogoutClicked = (event) => {
@@ -77,7 +85,7 @@ class App extends Component {
     __getContent() {
         if (!this.props.loadingConfig) {
             const now = this.state.time;
-            const config = this.state.config[0];
+            const config = this.state.config;
             const date = config.date;
             const startAll = date + ' ' + config.startAll;
             const startCreateTopics = date + ' ' + config.createTopics;
@@ -86,7 +94,9 @@ class App extends Component {
             const startResults = date + ' ' + config.results;
             const endAll = date + ' ' + config.endAll;
 
-            // return <Config/>;
+            // if (this.state.string === "^^vv<><>BA") {
+            //     return <Config/>;
+            // }
 
             if (now.isBefore(startAll)) {
                 Meteor.logout();
@@ -103,7 +113,7 @@ class App extends Component {
             if (now.isBefore(startCreateTopics)) {
                 Meteor.logout();
                 return this.__withTimerAfter(
-                    <NonAvailable/>, null, startAll, "En poco tiempo podrás ingresar para proponer tus temas");
+                    <NonAvailable/>, null, startCreateTopics, "En poco tiempo podrás ingresar para proponer tus temas");
             }
 
             if (this.props.currentUser) {

@@ -10,16 +10,17 @@ class Config extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            defaults : {
-                date : "2017-09-30",
-                createTopics : "10:50",
-                consolidateTopics : "15:45",
-                vote : "16:15",
-                results : "16:40",
-                endAll : "20:00"
-            },
-            new : {}
+            date : "",
+            createTopics : "",
+            consolidateTopics : "",
+            vote : "",
+            results : "",
+            endAll : ""
         }
+    }
+
+    componentDidMount() {
+        $('label').addClass('active');
     }
 
     __onSaveConfig() {
@@ -30,23 +31,134 @@ class Config extends Component {
         console.log(event.target.value);
     }
 
-    render() {
-        return <div>
+    __renderConfigItem(config) {
+        return <div key={config._id}>
             <form className="login-form">
-                <div className="input-field">
-                    <input type="text" onChange={this.__onInputChange.bind(this)}/>
-                    <label>
-                        Fecha
-                        <small> [yyyy-MM-dd]</small>
-                    </label>
+                <div className="row">
+                    <div className="col s6 input-field">
+                        <input type="text" defaultValue={config.date}/>
+                        <label>
+                            Fecha
+                            <small> [YYYY-MM-DD]</small>
+                        </label>
+                    </div>
+                    <div className="col s6 input-field">
+                        <input type="text" defaultValue={config.startAll}/>
+                        <label>
+                            Inicio del evento
+                            <small> [HH:mm]</small>
+                        </label>
+                    </div>
+                    <div className="col s6 input-field">
+                        <input type="text" defaultValue={config.createTopics}/>
+                        <label>
+                            Proponer temas
+                            <small> [HH:mm]</small>
+                        </label>
+                    </div>
+                    <div className="col s6 input-field">
+                        <input type="text" defaultValue={config.consolidateTopics}/>
+                        <label>
+                            Consolidar temas
+                            <small> [HH:mm]</small>
+                        </label>
+                    </div>
+                    <div className="col s6 input-field">
+                        <input type="text" defaultValue={config.vote}/>
+                        <label>
+                            Votar
+                            <small> [HH:mm]</small>
+                        </label>
+                    </div>
+                    <div className="col s6 input-field">
+                        <input type="text" defaultValue={config.results}/>
+                        <label>
+                            Resultados
+                            <small> [HH:mm]</small>
+                        </label>
+                    </div>
+                    <div className="col s6 input-field">
+                        <input type="text" defaultValue={config.endAll}/>
+                        <label>
+                            Fin del evento
+                            <small> [HH:mm]</small>
+                        </label>
+                    </div>
                 </div>
-
 
                 <div className="row">
                     <div className="col s12">
                         <button className="pink lighten-1 waves-effect waves-light btn-large right" type="submit"
                                 onClick={this.__onSaveConfig.bind(this)}>
-                            Continuar
+                            Guardar
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    }
+
+    render() {
+        const config = this.props.configs.filter(config => !config.default)[0];
+        return <div>
+            <form className="login-form">
+                <div className="row">
+                    <div className="col s6 input-field">
+                        <input type="text" defaultValue={config.date}/>
+                        <label>
+                            Fecha
+                            <small> [YYYY-MM-DD]</small>
+                        </label>
+                    </div>
+                    <div className="col s6 input-field">
+                        <input type="text" defaultValue={config.startAll}/>
+                        <label>
+                            Inicio del evento
+                            <small> [HH:mm]</small>
+                        </label>
+                    </div>
+                    <div className="col s6 input-field">
+                        <input type="text" defaultValue={config.createTopics}/>
+                        <label>
+                            Proponer temas
+                            <small> [HH:mm]</small>
+                        </label>
+                    </div>
+                    <div className="col s6 input-field">
+                        <input type="text" defaultValue={config.consolidateTopics}/>
+                        <label>
+                            Consolidar temas
+                            <small> [HH:mm]</small>
+                        </label>
+                    </div>
+                    <div className="col s6 input-field">
+                        <input type="text" defaultValue={config.vote}/>
+                        <label>
+                            Votar
+                            <small> [HH:mm]</small>
+                        </label>
+                    </div>
+                    <div className="col s6 input-field">
+                        <input type="text" defaultValue={config.results}/>
+                        <label>
+                            Resultados
+                            <small> [HH:mm]</small>
+                        </label>
+                    </div>
+                    <div className="col s6 input-field">
+                        <input type="text" defaultValue={config.endAll}/>
+                        <label>
+                            Fin del evento
+                            <small> [HH:mm]</small>
+                        </label>
+                    </div>
+                </div>
+
+                <div className="row">
+                    <div className="col s12">
+                        <button className="pink lighten-1 waves-effect waves-light btn-large right" type="submit"
+                                onClick={this.__onSaveConfig.bind(this)}>
+                            Guardar
                         </button>
                     </div>
                 </div>
@@ -56,12 +168,12 @@ class Config extends Component {
 }
 
 Config.propTypes = {
-    config : PropTypes.array.isRequired
+    configs : PropTypes.array.isRequired
 };
 
 export default createContainer(() => {
     Meteor.subscribe('configs');
     return {
-        config : Configs.find({}).fetch()
+        configs : Configs.find({}).fetch()
     };
 }, Config);
