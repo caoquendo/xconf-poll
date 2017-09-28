@@ -24,22 +24,46 @@ class App extends Component {
 
         this.state = {
             time: moment(),
-            config: null
+            config: null,
+            string: ''
         };
 
         setInterval(() => {
-            this.setState({
+            this.setNewState({
                 time: moment()
             });
         });
     }
 
+    setNewState(newVals) {
+        let prevState = this.state;
+        let newState = Object.assign(prevState, newVals);
+        this.setState(newState);
+    }
+
     componentWillReceiveProps(nextProps) {
         if (!nextProps.loadingConfig) {
-            this.setState({
+            this.setNewState({
                 time: moment(),
                 config: nextProps.config
             });
+        }
+    }
+
+    componentWillMount() {
+        document.addEventListener("keypress", this.__handleKeyDown.bind(this));
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener("keypress", this.__handleKeyDown.bind(this));
+    }
+
+    __handleKeyDown(event) {
+        let str = this.state.string;
+        str += event.key;
+        this.setNewState({string: str});
+        if(str === "^^vv<><>BA") {
+            console.log("!!!");
         }
     }
 
