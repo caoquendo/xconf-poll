@@ -28,12 +28,12 @@ export default class Timer extends Component {
         }
 
         this.setNewState({
-            secondsLeft: secondsLeft,
-            days: days,
-            hours: hours,
-            minutes: minutes,
-            seconds: seconds,
-            time: moment().format("HH:mm:ss")
+            secondsLeft : secondsLeft,
+            days : days,
+            hours : hours,
+            minutes : minutes,
+            seconds : seconds,
+            time : moment().format("HH:mm:ss")
         });
     }
 
@@ -56,17 +56,17 @@ export default class Timer extends Component {
         }
 
         this.state = {
-            totalSeconds: totalStartEnd.asSeconds(),
-            passed: passedStartNow.asSeconds(),
-            secondsLeft: secondsLeft,
-            days: days,
-            hours: hours,
-            minutes: minutes,
-            seconds: seconds,
-            time: moment().format("HH:mm:ss"),
-            config: {
-                size: this.props.size || 192,
-                labelInside: typeof this.props.labelInside === 'undefined' ? true : this.props.labelInside
+            totalSeconds : totalStartEnd.asSeconds(),
+            passed : passedStartNow.asSeconds(),
+            secondsLeft : secondsLeft,
+            days : days,
+            hours : hours,
+            minutes : minutes,
+            seconds : seconds,
+            time : moment().format("HH:mm:ss"),
+            config : {
+                size : this.props.size || 192,
+                labelInside : typeof this.props.labelInside === 'undefined' ? true : this.props.labelInside
             }
         }
     }
@@ -90,7 +90,7 @@ export default class Timer extends Component {
         const totalSeconds = Math.floor(state.totalSeconds);
         let timer = `${this.formatTimePart(state.hours)}:${this.formatTimePart(state.minutes)}:${this.formatTimePart(state.seconds)}`;
         if (state.days > 0) {
-            timer = `${state.days} días ${timer}`;
+            timer = `${state.days} día${state.days === 1 ? '' : 's'} ${timer}`;
         }
         const size = this.state.config.size;
         const secondsPassed = this.state.passed;
@@ -108,46 +108,46 @@ export default class Timer extends Component {
     }
 
     __labelOutside(size, timer) {
-        return <div className="timer-label-outside" style={{width: size}}>
+        return <div className="timer-label-outside" style={{width : size}}>
             {timer}
         </div>;
     }
 
     __timer(size, totalSeconds, secondsPassed, timer) {
         let labelStyle = {
-            width: size / 2,
-            height: size / 2,
-            top: size / 2 - size / 4,
-            left: size / 2 - size / 4
+            width : size / 2,
+            height : size / 2,
+            top : size / 2 - size / 4,
+            left : size / 2 - size / 4
         };
         if (this.state.days > 0) {
             labelStyle.paddingTop = size / 8;
         }
         return <div className="timer-wrapper" style={{
-            width: size,
-            height: size
+            width : size,
+            height : size
         }}>
             <div className="spinner pie" style={{
-                animation: `rota ${totalSeconds}s linear infinite`,
-                animationDelay: `-${secondsPassed}s`,
-                animationIterationCount: 1,
-                borderRadius: `${size / 2}px 0 0 ${size / 2}px`
+                animation : `rota ${totalSeconds}s linear infinite`,
+                animationDelay : `-${secondsPassed}s`,
+                animationIterationCount : 1,
+                borderRadius : `${size / 2}px 0 0 ${size / 2}px`
             }}/>
             <div className="filler pie" style={{
-                animation: `fill ${totalSeconds}s steps(1, end) infinite`,
-                animationDelay: `-${secondsPassed}s`,
-                animationIterationCount: 1,
-                borderRadius: `0 ${size / 2}px ${size / 2}px 0`
+                animation : `fill ${totalSeconds}s steps(1, end) infinite`,
+                animationDelay : `-${secondsPassed}s`,
+                animationIterationCount : 1,
+                borderRadius : `0 ${size / 2}px ${size / 2}px 0`
             }}/>
             <div className="mask" style={{
-                animation: `mask ${totalSeconds}s steps(1, end) infinite`,
-                animationDelay: `-${secondsPassed}s`,
-                animationIterationCount: 1
+                animation : `mask ${totalSeconds}s steps(1, end) infinite`,
+                animationDelay : `-${secondsPassed}s`,
+                animationIterationCount : 1
             }}/>
             <div className="timer-ghost" style={{
-                width: size,
-                height: size,
-                borderRadius: `${size / 2}px`
+                width : size,
+                height : size,
+                borderRadius : `${size / 2}px`
             }}/>
             <div className={`timer-label timer-label-${size}`} style={labelStyle}>
                 {this.state.config.labelInside ? timer : ''}
@@ -157,8 +157,8 @@ export default class Timer extends Component {
 }
 
 Timer.propTypes = {
-    startTime: PropTypes.string.isRequired,
-    endTime: PropTypes.string.isRequired,
-    size: PropTypes.number,
-    labelInside: PropTypes.bool
+    startTime : PropTypes.string.isRequired,
+    endTime : PropTypes.string.isRequired,
+    size : PropTypes.number,
+    labelInside : PropTypes.bool
 };

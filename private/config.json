@@ -3,22 +3,12 @@
     {
       "_id": "1",
       "date": "2017-09-30",
-      "createTopics": {
-        "start": "10:50",
-        "end": "15:45"
-      },
-      "consolidateTopics": {
-        "start": "15:45",
-        "end": "16:15"
-      },
-      "vote": {
-        "start": "16:15",
-        "end": "16:40"
-      },
-      "results": {
-        "start": "16:40",
-        "end": "20:00"
-      }
+      "startAll": "07:30",
+      "createTopics": "10:50",
+      "consolidateTopics": "15:45",
+      "vote": "16:15",
+      "results": "16:40",
+      "endAll": "20:00"
     }
   ]
 }

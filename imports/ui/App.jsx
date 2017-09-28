@@ -68,7 +68,7 @@ class App extends Component {
         }
     }
 
-    __onClick = (event) => {
+    __onLogoutClicked = (event) => {
         event.preventDefault();
 
         Meteor.logout();
@@ -79,15 +79,31 @@ class App extends Component {
             const now = this.state.time;
             const config = this.state.config[0];
             const date = config.date;
-            const startCreateTopics = date + ' ' + config.createTopics.start;
-            const startConsolidate = date + ' ' + config.consolidateTopics.start;
-            const startVote = date + ' ' + config.vote.start;
-            const startResults = date + ' ' + config.results.start;
-            const endAll = date + ' ' + config.results.end;
+            const startAll = date + ' ' + config.startAll;
+            const startCreateTopics = date + ' ' + config.createTopics;
+            const startConsolidate = date + ' ' + config.consolidateTopics;
+            const startVote = date + ' ' + config.vote;
+            const startResults = date + ' ' + config.results;
+            const endAll = date + ' ' + config.endAll;
 
-            if (now.isBefore(startCreateTopics) || now.isAfter(endAll)) {
+            // return <Config/>;
+
+            if (now.isBefore(startAll)) {
+                Meteor.logout();
                 return this.__withTimerAfter(
-                    <NonAvailable/>, null, startCreateTopics, "En poco tiempo podrás ingresar para proponer tus temas");
+                    <NonAvailable/>, null, startAll, "¡Ya no falta mucho para empezar!");
+            }
+
+            if (now.isAfter(endAll)) {
+                Meteor.logout();
+                return this.__withTimerAfter(
+                    <NonAvailable/>, null, startAll, "Este evento ya terminó. Espera más noticias sobre nosotros.");
+            }
+
+            if (now.isBefore(startCreateTopics)) {
+                Meteor.logout();
+                return this.__withTimerAfter(
+                    <NonAvailable/>, null, startAll, "En poco tiempo podrás ingresar para proponer tus temas");
             }
 
             if (this.props.currentUser) {
@@ -162,7 +178,7 @@ class App extends Component {
     __logoutButton() {
         let button = (<button type="submit"
                               className="waves-effect waves-light btn-large pink lighten-2"
-                              onClick={this.__onClick.bind(this)}>
+                              onClick={this.__onLogoutClicked.bind(this)}>
             Bye
         </button>);
         return this.isValidUser() ? button : null;
