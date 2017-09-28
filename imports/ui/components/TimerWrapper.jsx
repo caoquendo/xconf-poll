@@ -7,15 +7,22 @@ const moment = require('moment');
 
 export default class TimerWrapper extends Component {
 
+    __interval = null;
+
     constructor(props) {
         super(props);
 
         this.setInitialState();
-        setInterval(() => {
+        this.__interval = setInterval(() => {
             this.setNewState({
                 time : moment().format("HH:mm:ss")
             });
         }, 1000);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.__interval);
+        this.__interval = null;
     }
 
     setInitialState() {

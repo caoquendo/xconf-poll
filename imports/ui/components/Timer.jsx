@@ -6,12 +6,19 @@ const moment = require('moment');
 
 export default class Timer extends Component {
 
+    __interval = null;
+
     constructor(props) {
         super(props);
 
         this.setInitialState();
         let endTime = this.props.endTime;
-        setInterval(() => this.tickUpdate(endTime), 1000);
+        this.__interval = setInterval(() => this.tickUpdate(endTime), 1000);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.__interval);
+        this.__interval = null;
     }
 
     tickUpdate(endTime) {

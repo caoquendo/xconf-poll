@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {Meteor} from 'meteor/meteor'
 import {createContainer} from 'meteor/react-meteor-data';
 
-import {Configs} from '../../imports/api/configs.js';
+import {Configs} from '../api/configs.js';
 
 import Login from "./components/Login";
 import Consolidate from './components/Consolidate';
@@ -14,11 +14,13 @@ import Poll from "./components/Poll";
 import NonAvailable from "./components/NonAvailable";
 import TimerWrapper from "./components/TimerWrapper";
 import XconfCard from "./components/XconfCard";
-import Config from "./components/Config";
+// import Config from "./components/Config";
 
 const moment = require('moment');
 
 class App extends Component {
+
+    __interval = null;
 
     constructor(props) {
         super(props);
@@ -30,7 +32,7 @@ class App extends Component {
             configLoaded : false
         };
 
-        setInterval(() => {
+        this.__interval = setInterval(() => {
             this.setNewState({
                 time : moment()
             });
@@ -68,6 +70,9 @@ class App extends Component {
 
     componentWillUnmount() {
         document.removeEventListener("keypress", this.__handleKeyDown.bind(this));
+
+        clearInterval(this.__interval);
+        this.__interval = null;
     }
 
     __handleKeyDown(event) {
