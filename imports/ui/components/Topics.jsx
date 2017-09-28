@@ -32,7 +32,8 @@ class Topics extends Component {
 
     render() {
         return <div>
-            <span className="xconf-title">Indícanos sobre que te gustaría hablar más en el Open Space al final del día.</span>
+            <span
+                className="xconf-title">Indícanos sobre que te gustaría hablar más en el Open Space al final del día.</span>
             <form className="topic-form">
                 <div className="input-field">
                     <textarea className="materialize-textarea" ref="topicTextarea"/>
@@ -46,10 +47,20 @@ class Topics extends Component {
                             ref={(input) => this.__conferenceSelect = input}>
                         <option value="" disabled>Selecciona...</option>
                         {this.props.conferences.map((conference) => {
+                            let content = <span className="conference-item">
+                                <span className="conference">{conference.name}. </span>
+                                <small className="extra-details">
+                                    <strong className="start-time">{conference.startTime} </strong>
+                                    <span className="presenters">
+                                        -{conference.presenters.map((presenter) => <span key={presenter}> {presenter}</span>)}
+                                    </span>
+                                </small>
+                            </span>;
                             return <option
                                 key={conference._id}
-                                value={conference.name}>
-                                {conference.name}
+                                value={conference.name}
+                                data-placeholder={conference.name}>
+                                {content}
                             </option>
                         })}
                     </select>
@@ -73,8 +84,8 @@ class Topics extends Component {
 }
 
 Topics.propTypes = {
-    conferences : PropTypes.array.isRequired,
-    loading : PropTypes.bool.isRequired
+    conferences: PropTypes.array.isRequired,
+    loading: PropTypes.bool.isRequired
 };
 
 export default createContainer(() => {
@@ -82,7 +93,7 @@ export default createContainer(() => {
     const loading = !conferencesSubscription.ready();
 
     return {
-        conferences : Conferences.find({}, {sort : {name : 1}}).fetch(),
+        conferences: Conferences.find({}, {sort: {_id: 1}}).fetch(),
         loading
     };
 }, Topics);

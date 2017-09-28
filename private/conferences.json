@@ -1,40 +1,89 @@
 {
   "conferences": [
     {
-      "_id": "1",
-      "name": "conf 1",
-      "times": {
-        "start": "10h00",
-        "end": "11h00"
-      },
+      "_id": "1001",
+      "name": "Plataformas: los nuevos agentes de la innovación",
+      "startTime": "10h50",
       "presenters": [
-        "Juan",
-        "Maria",
-        "Pepe"
+        "Fausto de la Torre"
       ]
     },
     {
-      "_id": "2",
-      "name": "conf 2",
-      "times": {
-        "start": "11h00",
-        "end": "12h00"
-      },
+      "_id": "1002",
+      "name": "Solucionando la vida con pruebas de contrato",
+      "startTime": "10h50",
       "presenters": [
-        "Juan",
-        "Pepe"
+        "Vinicius Fernandes",
+        "Diego Villacís"
       ]
     },
     {
-      "_id": "3",
-      "name": "conf 3",
-      "times": {
-        "start": "14h00",
-        "end": "15h00"
-      },
+      "_id": "1003",
+      "name": "Interfaces Conversacionales",
+      "startTime": "11h55",
       "presenters": [
-        "Maria",
-        "Pepe"
+        "Rebecca Karasik",
+        "Jorge Dominguez"
+      ]
+    },
+    {
+      "_id": "1004",
+      "name": "Manual de Seguridad para Equipos Ágiles",
+      "startTime": "11h55",
+      "presenters": [
+        "Equipo \"Uniform Alfa\""
+      ]
+    },
+    {
+      "_id": "1005",
+      "name": "Deep Learning: Algo más que una moda",
+      "startTime": "13h45",
+      "presenters": [
+        "Carlos Fuentes"
+      ]
+    },
+    {
+      "_id": "1006",
+      "name": "Leading a cultural shift through Devops at LATAM Airlines: an experience report",
+      "startTime": "13h45",
+      "presenters": [
+        "Julio Castellón",
+        "Luiza Nunes"
+      ]
+    },
+    {
+      "_id": "1007",
+      "name": "Lean Analytics",
+      "startTime": "14h40",
+      "presenters": [
+        "Karina Mora",
+        "Gabriela Chasifán"
+      ]
+    },
+    {
+      "_id": "1008",
+      "name": "Simulando para Integrar",
+      "startTime": "14h40",
+      "presenters": [
+        "Luisa Emme"
+      ]
+    },
+    {
+      "_id": "1009",
+      "name": "Evolucionando un monolito a microservicios a través de plataformas",
+      "startTime": "15h45",
+      "presenters": [
+        "Rodrigo Vallejo",
+        "Felipe Gómez"
+      ]
+    },
+    {
+      "_id": "1010",
+      "name": "¿Por qué debería aprender React?",
+      "startTime": "15h45",
+      "presenters": [
+        "Pamela Plúas",
+        "Diego Villacís"
       ]
     }
   ]
