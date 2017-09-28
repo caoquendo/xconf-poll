@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import {Meteor} from 'meteor/meteor'
 import {createContainer} from 'meteor/react-meteor-data';
 
-import {ConsolidatedTopics} from '../../api/consolidatedTopics.js';
-import ResultItem from "./ResultItem";
+import {Configs} from '../../../imports/api/configs.js';
 
 class Config extends Component {
     render() {
@@ -19,8 +18,8 @@ Config.propTypes = {
 };
 
 export default createContainer(() => {
-    Meteor.subscribe('config');
+    Meteor.subscribe('configs');
     return {
-        config: Config.find({}).fetch()
+        config: Configs.find({}).fetch()
     };
 }, Config);

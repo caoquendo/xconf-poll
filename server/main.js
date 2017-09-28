@@ -3,7 +3,7 @@ import {Conferences} from '../imports/api/conferences'
 import {Topics} from '../imports/api/topics'
 import {ConsolidatedTopics} from '../imports/api/consolidatedTopics'
 import {Votes} from '../imports/api/votes'
-import {Config} from '../imports/api/config'
+import {Configs} from '../imports/api/configs'
 
 Meteor.startup(() => {
     if (Conferences.find().count() === 0) {
@@ -27,9 +27,9 @@ Meteor.startup(() => {
         });
     }
 
-    if (Config.find().count() === 0) {
+    if (Configs.find().count() === 0) {
         JSON.parse(Assets.getText("config.json")).config.forEach((config) => {
-            Config.insert(config);
+            Configs.insert(config);
         });
     }
 });

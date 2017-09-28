@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {Meteor} from 'meteor/meteor'
 import {createContainer} from 'meteor/react-meteor-data';
 
-import {Config} from '../api/config.js';
+import {Configs} from '../../imports/api/configs.js';
 
 import Login from "./components/Login";
 import Consolidate from './components/Consolidate';
@@ -14,6 +14,7 @@ import Poll from "./components/Poll";
 import NonAvailable from "./components/NonAvailable";
 import TimerWrapper from "./components/TimerWrapper";
 import XconfCard from "./components/XconfCard";
+import Config from "./components/Config";
 
 const moment = require('moment');
 
@@ -23,14 +24,14 @@ class App extends Component {
         super(props);
 
         this.state = {
-            time: moment(),
-            config: null,
-            string: ''
+            time : moment(),
+            config : null,
+            string : ''
         };
 
         setInterval(() => {
             this.setNewState({
-                time: moment()
+                time : moment()
             });
         });
     }
@@ -44,8 +45,8 @@ class App extends Component {
     componentWillReceiveProps(nextProps) {
         if (!nextProps.loadingConfig) {
             this.setNewState({
-                time: moment(),
-                config: nextProps.config
+                time : moment(),
+                config : nextProps.config
             });
         }
     }
@@ -61,8 +62,8 @@ class App extends Component {
     __handleKeyDown(event) {
         let str = this.state.string;
         str += event.key;
-        this.setNewState({string: str});
-        if(str === "^^vv<><>BA") {
+        this.setNewState({string : str});
+        if (str === "^^vv<><>BA") {
             console.log("!!!");
         }
     }
@@ -173,17 +174,17 @@ class App extends Component {
 }
 
 App.propTypes = {
-    currentUser: PropTypes.object,
-    config: PropTypes.array,
-    loadingConfig: PropTypes.bool
+    currentUser : PropTypes.object,
+    config : PropTypes.array,
+    loadingConfig : PropTypes.bool
 };
 
 export default createContainer(() => {
-    const configSubscription = Meteor.subscribe('config');
+    const configSubscription = Meteor.subscribe('configs');
     const loading = !configSubscription.ready();
     return {
-        currentUser: Meteor.user(),
-        config: Config.find({}).fetch(),
-        loadingConfig: loading
+        currentUser : Meteor.user(),
+        config : Configs.find({}).fetch(),
+        loadingConfig : loading
     };
 }, App);
