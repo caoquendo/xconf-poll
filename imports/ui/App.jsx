@@ -119,7 +119,7 @@ class App extends Component {
             if (now.isAfter(endAll)) {
                 Meteor.logout();
                 return this.__withTimerAfter(
-                    <NonAvailable/>, null, startAll, "Este evento ya terminó. Espera más noticias sobre nosotros.");
+                    <NonAvailable/>, null, startAll, "El evento ha terminado. Espera más noticias de nosotros pronto.");
             }
 
             if (now.isBefore(startCreateTopics)) {
@@ -157,7 +157,7 @@ class App extends Component {
                         </div>
                     }
                     return this.__withLogoutButton(
-                        <ConsolidateWait/>, startConsolidate, startVote, "Pronto podrás votar por tus favoritos!");
+                        <ConsolidateWait/>, startConsolidate, startVote, "¡Pronto podrás votar por tus favoritos!");
                 }
                 if (now.isSameOrAfter(startCreateTopics)) {
                     return this.__withLogoutButton(

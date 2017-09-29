@@ -44,7 +44,7 @@ class Topics extends Component {
     render() {
         return <div>
             <span
-                className="xconf-title">Indícanos sobre que te gustaría hablar más en el Open Space al final del día.</span>
+                className="xconf-title">Indícanos sobre qué te gustaría hablar más en el Open Space al final del día.</span>
             <form className="topic-form">
                 <div className="input-field">
                     <textarea className="materialize-textarea" ref="topicTextarea"/>
@@ -78,7 +78,7 @@ class Topics extends Component {
                     </select>
                     <label>
                         ¿A qué charla se relaciona?
-                        <small>(Esto nos ayudará a organizar mejor los temas)</small>
+                        <small>(Para ordenar mejor los temas)</small>
                     </label>
                 </div>
 

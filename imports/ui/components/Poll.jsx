@@ -55,7 +55,7 @@ class Poll extends Component {
         return <div>
             <div className="xconf-title">
                 {this.__votes()}
-                <p className="vote-hint">(Presiona la estrella para votar)</p>
+                <p className="vote-hint">(Presiona la estrella para votar. Tu voto se guarda inmediatamente.)</p>
             </div>
             <div className="row">
                 {this.props.consolidatedTopics.map((topic, index) => {

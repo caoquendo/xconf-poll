@@ -27,6 +27,7 @@ input:focus, textarea:focus {
 
 .vote-hint {
     font-size: 0.8rem;
+    line-height: 1rem;
 }
 
 .xconf-title {

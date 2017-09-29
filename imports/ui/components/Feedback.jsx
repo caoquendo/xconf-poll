@@ -40,7 +40,7 @@ class Feedback extends Component {
         if (textToSave !== '') {
             Meteor.call('feedbacks.insert', textToSave, faceToSave, (error, result) => {
                 if (!error) {
-                    alert("¡Gracias por tu feedback!");
+                    alert("¡Gracias por enviar tus comentarios!");
                     this.setNewState({text: '', face: ''});
                 } else {
                     alert("Ocurrió un error inesperado. Vuelve a intentar.");
@@ -68,7 +68,7 @@ class Feedback extends Component {
         return <div className="card-content">
             <form className="feedback-container">
                 <div className="feedback-prompt center-align">
-                    <small><strong>Esta información es anónima</strong>. Recuerda que puedes enviarnos feedback cuantas veces quieras.</small>
+                    <small><strong>Esta información es anónima</strong>. Recuerda que puedes enviar tu opinión o comentarios cuantas veces quieras.</small>
                 </div>
                 <div className="feedback-feelings">
                     <label>¿Cómo te sientes?</label>

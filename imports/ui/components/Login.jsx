@@ -45,8 +45,8 @@ export default class Login extends Component {
                 <div className="input-field">
                     <input type="text" ref="nameInput"/>
                     <label>
-                        Nombre y Apellido
-                        <small>(Como aparece en tu identificación)</small>
+                        Nombre y apellido
+                        <small>(Como está en tu identificación)</small>
                     </label>
                 </div>
                 <div className="input-field">

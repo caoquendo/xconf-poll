@@ -15,6 +15,10 @@ export default class ResultItem extends Component {
         this.props.onDownVote(this.props.topic._id, this.props.vote._id);
     };
 
+    __onDisabledClick = (event) => {
+        event.preventDefault();
+    };
+
     render() {
         const topic = this.props.topic;
         const alreadyVoted = !!this.props.vote;
@@ -29,7 +33,7 @@ export default class ResultItem extends Component {
                    className="waves-effect waves-light topic-vote-button">
                     <img src="images/star-empty.svg" className="vote-icon"/>
                 </a> :
-                <a href="#" disabled
+                <a href="#" disabled onClick={this.__onDisabledClick.bind(this)}
                    className="waves-effect waves-light topic-vote-button">
                     <img src="images/star-disabled.svg" className="vote-icon"/>
                 </a>;
