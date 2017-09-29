@@ -193,7 +193,7 @@ class App extends Component {
     }
 
     isValidUser() {
-        let arr = ['Luz Unda', 'C3'];
+        let arr = ['Luz', 'C3'];
         return arr.indexOf(this.props.currentUser.username) !== -1;
     }
 

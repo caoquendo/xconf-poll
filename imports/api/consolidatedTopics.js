@@ -11,7 +11,7 @@ if (Meteor.isServer) {
 }
 
 let validateUser = function () {
-    const users = ['Luz Unda', 'C3'];
+    const users = ['Luz', 'C3'];
 
     if (!Meteor.userId() || users.indexOf(Meteor.user().username) === -1) {
         throw new Meteor.Error('not-authorized');
