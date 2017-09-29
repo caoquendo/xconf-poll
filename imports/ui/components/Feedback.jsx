@@ -68,7 +68,8 @@ class Feedback extends Component {
         return <div className="card-content">
             <form className="feedback-container">
                 <div className="feedback-prompt center-align">
-                    <small><strong>Esta información es anónima</strong>. Recuerda que puedes enviar tu opinión o comentarios cuantas veces quieras.</small>
+                    <small><strong>Esta información es anónima</strong>.<br />
+                        Puedes enviar tu opinión o comentarios sobre las charlas o el evento las veces que quieras.</small>
                 </div>
                 <div className="feedback-feelings">
                     <label>¿Cómo te sientes?</label>
