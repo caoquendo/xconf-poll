@@ -10,7 +10,7 @@ class Results extends Component {
         return <div>
             <div className="row">
                 <div className="col s12 xconf-title" style={{textAlign : 'left'}}>
-                    Estos son los temas seleccionados por mayoría de votos.
+                    Estos son los temas elegidos para el Open Space.
                 </div>
             </div>
             <div className="row">
