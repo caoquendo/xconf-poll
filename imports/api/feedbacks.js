@@ -11,12 +11,14 @@ if (Meteor.isServer) {
 }
 
 Meteor.methods({
-    'feedbacks.insert'(text) {
+    'feedbacks.insert'(text, face) {
         check(text, String);
+        check(face, String);
 
         Feedbacks.insert({
             text,
-            createdAt : new Date()
+            face,
+            createdAt: new Date()
         });
     },
 });

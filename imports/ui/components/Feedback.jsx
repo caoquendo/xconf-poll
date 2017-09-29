@@ -9,8 +9,9 @@ class Feedback extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isOpen : false,
-            text : ''
+            isOpen: false,
+            text: '',
+            face: 'medium'
         };
     }
 
@@ -21,26 +22,43 @@ class Feedback extends Component {
     }
 
     __onClickFeedback() {
-        this.setNewState({isOpen : !this.state.isOpen});
+        this.setNewState({isOpen: !this.state.isOpen});
     }
 
     __onFeedbackWritten(event) {
-        this.setNewState({text : event.target.value});
+        this.setNewState({text: event.target.value});
+    }
+
+    __onFeedbackFaceClicked(type) {
+        this.setNewState({face: type});
     }
 
     __onSaveClicked(event) {
         event.preventDefault();
-        let textToSave = this.state.text.trim();
+        const textToSave = this.state.text.trim();
+        const faceToSave = this.state.face;
         if (textToSave !== '') {
-            Meteor.call('feedbacks.insert', textToSave, (error, result) => {
+            Meteor.call('feedbacks.insert', textToSave, faceToSave, (error, result) => {
                 if (!error) {
                     alert("¡Gracias por tu feedback!");
-                    this.setNewState({text : ''});
+                    this.setNewState({text: '', face: 'medium'});
                 } else {
                     alert("Ocurrió un error inesperado. Vuelve a intentar.");
                 }
             });
         }
+    }
+
+    __renderFace(type) {
+        let imageName = `images/face_${type}`;
+        if (this.state.face !== type) {
+            imageName += '_disabled';
+        }
+        imageName += '.svg';
+
+        return <img src={imageName}
+                    onClick={() => this.__onFeedbackFaceClicked(type)}
+                    className="feedback-icon"/>
     }
 
     __renderContent() {
@@ -49,6 +67,13 @@ class Feedback extends Component {
         }
         return <div className="card-content">
             <form>
+                <div className="row">
+                    <div className="col m12 feedback-faces">
+                        {this.__renderFace('sad')}
+                        {this.__renderFace('medium')}
+                        {this.__renderFace('happy')}
+                    </div>
+                </div>
                 <div className="input-field">
                     <textarea className="materialize-textarea"
                               value={this.state.text}

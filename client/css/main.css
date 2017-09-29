@@ -99,3 +99,13 @@ h5 {
 .topic-context {
     line-height: 1rem;
 }
+
+.feedback-faces {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.feedback-icon {
+    width: 160px;
+    height: 160px;
+}
