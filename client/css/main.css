@@ -30,6 +30,11 @@ input:focus, textarea:focus {
     width: 56px;
 }
 
+.tap-icon {
+    width: 32px;
+    margin-right: 16px;
+}
+
 .vote-hint {
     font-size: 0.8rem;
 }

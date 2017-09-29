@@ -3,6 +3,7 @@ import {Conferences} from '../imports/api/conferences'
 import {Topics} from '../imports/api/topics'
 import {ConsolidatedTopics} from '../imports/api/consolidatedTopics'
 import {Votes} from '../imports/api/votes'
+import {Feedbacks} from '../imports/api/feedbacks'
 import {Configs} from '../imports/api/configs'
 
 Meteor.startup(() => {
