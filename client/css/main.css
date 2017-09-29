@@ -86,22 +86,28 @@ h5 {
 .topic-content {
     display: flex;
 }
+
 .topic-container {
     flex: 1 0;
 }
+
 .topic-vote-button {
     flex-basis: 56px;
 }
+
 .topic-vote-button .vote-icon {
     width: 56px;
 }
+
 .topic-for-vote {
     line-height: 1.2rem;
     margin-bottom: 8px;
 }
+
 .topic-context {
     line-height: 0.75rem;
 }
+
 .vote-count {
     font-size: 0.7rem;
     font-weight: bold;
@@ -113,17 +119,39 @@ h5 {
     display: flex;
     justify-content: space-evenly;
 }
+
 .feedback-icon {
     width: 112px;
     height: 112px;
 }
+
 .feedback-feelings label {
     font-size: 1rem;
 }
+
 .feedback-prompt {
     font-size: 1rem;
     line-height: 1rem;
     margin-bottom: 8px;
+}
+
+.feedback-card {
+    text-align: center;
+}
+
+.feedback-card .card-content {
+    height: 250px;
+    overflow: auto;
+    text-align: left;
+}
+
+.feedback-card .feedback-icon {
+    width: 60px;
+    height: 60px;
+}
+
+.feedback-card .feedback-content {
+    font-size: 14pt;
 }
 
 .credits {

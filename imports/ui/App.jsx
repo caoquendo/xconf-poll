@@ -15,6 +15,7 @@ import NonAvailable from "./components/NonAvailable";
 import TimerWrapper from "./components/TimerWrapper";
 import XconfCard from "./components/XconfCard";
 import Feedback from "./components/Feedback";
+import FeedbackShow from "./components/FeedbackShow";
 import Credits from "./components/Credits";
 // import Config from "./components/Config";
 
@@ -102,8 +103,14 @@ class App extends Component {
             const endAll = date + ' ' + config.endAll;
 
             // if (this.state.string === "^^vv<><>BA") {
+            //      this.setNewState({string : ''});
             //     return <Config/>;
             // }
+
+            if (this.state.string === "IdsPisPoPd") {
+                this.setNewState({string : ''});
+                return <FeedbackShow/>;
+            }
 
             if (now.isBefore(startAll)) {
                 Meteor.logout();
