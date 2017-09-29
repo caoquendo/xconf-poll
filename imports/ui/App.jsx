@@ -15,15 +15,10 @@ import NonAvailable from "./components/NonAvailable";
 import TimerWrapper from "./components/TimerWrapper";
 import XconfCard from "./components/XconfCard";
 import Feedback from "./components/Feedback";
+import Credits from "./components/Credits";
 // import Config from "./components/Config";
 
 const moment = require('moment');
-
-/*
-<div>Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
-<div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
-<div>Icons made by <a href="https://www.flaticon.com/authors/alfredo-hernandez" title="Alfredo Hernandez">Alfredo Hernandez</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
- */
 
 class App extends Component {
 
@@ -210,6 +205,7 @@ class App extends Component {
         return <div>
             <XconfCard content={this.__getContent()}/>
             <Feedback/>
+            <Credits/>
         </div>;
     }
 }

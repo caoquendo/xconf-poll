@@ -125,3 +125,11 @@ h5 {
     line-height: 1rem;
     margin-bottom: 8px;
 }
+
+.credits {
+    font-size: 0.7em;
+}
+.credits .authors {
+    font-size: 0.8em;
+    color: dimgray;
+}
