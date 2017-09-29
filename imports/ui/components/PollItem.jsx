@@ -20,29 +20,34 @@ export default class ResultItem extends Component {
         const alreadyVoted = !!this.props.vote;
 
         let button = alreadyVoted ?
-            <a href="#" onClick={this.__onDownVote.bind(this)}
-                    className="waves-effect waves-light right">
-                <img src="images/star-filled.svg" className="vote-icon"/>
-            </a> :
-            this.props.canUpVote ?
-                <a href="#" onClick={this.__onUpVote.bind(this)}
+                     <a href="#" onClick={this.__onDownVote.bind(this)}
                         className="waves-effect waves-light right">
-                    <img src="images/star-empty.svg" className="vote-icon"/>
-                </a> :
-                <a href="#" disabled
-                    className="waves-effect waves-light right">
-                    <img src="images/star-disabled.svg" className="vote-icon"/>
-                </a>;
+                         <img src="images/star-filled.svg" className="vote-icon"/>
+                     </a> :
+                     this.props.canUpVote ?
+                     <a href="#" onClick={this.__onUpVote.bind(this)}
+                        className="waves-effect waves-light right">
+                         <img src="images/star-empty.svg" className="vote-icon"/>
+                     </a> :
+                     <a href="#" disabled
+                        className="waves-effect waves-light right">
+                         <img src="images/star-disabled.svg" className="vote-icon"/>
+                     </a>;
 
         return (
             <div className="col s12">
                 <div className="card">
                     <div className="card-content">
                         {button}
-                        <span className="card-title pink-text text-lighten-1">
-                            <h5>{topic.conference}</h5>
-                        </span>
-                        {topic.text}
+                        <p className="topic-for-vote deep-purple-text text-lighten-1">{topic.text}</p>
+                        <p className="topic-context">
+                            <small>
+                                en referencia a &nbsp;
+                                <span className="pink-text">
+                                 {topic.conference}
+                                </span>
+                            </small>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -51,10 +56,10 @@ export default class ResultItem extends Component {
 }
 
 ResultItem.propTypes = {
-    topic: PropTypes.object.isRequired,
-    index: PropTypes.number.isRequired,
-    onUpVote: PropTypes.func.isRequired,
-    onDownVote: PropTypes.func.isRequired,
-    vote: PropTypes.object,
-    canUpVote: PropTypes.bool.isRequired
+    topic : PropTypes.object.isRequired,
+    index : PropTypes.number.isRequired,
+    onUpVote : PropTypes.func.isRequired,
+    onDownVote : PropTypes.func.isRequired,
+    vote : PropTypes.object,
+    canUpVote : PropTypes.bool.isRequired
 };

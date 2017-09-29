@@ -91,3 +91,11 @@ h5 {
 .conference-select .conference {
     line-height: 1rem;
 }
+
+.topic-for-vote {
+    line-height: 1rem;
+}
+
+.topic-context {
+    line-height: 1rem;
+}
