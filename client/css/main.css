@@ -26,10 +26,6 @@ input:focus, textarea:focus {
     color: white;
 }
 
-.vote-icon {
-    width: 56px;
-}
-
 .tap-icon {
     width: 32px;
     margin-right: 16px;
@@ -92,19 +88,30 @@ h5 {
     line-height: 1rem;
 }
 
-.topic-for-vote {
-    line-height: 1rem;
+.topic-content {
+    display: flex;
 }
-
+.topic-container {
+    flex: 1 0;
+}
+.topic-vote-button {
+    flex-basis: 56px;
+}
+.topic-vote-button .vote-icon {
+    width: 56px;
+}
+.topic-for-vote {
+    line-height: 1.2rem;
+    margin-bottom: 8px;
+}
 .topic-context {
-    line-height: 1rem;
+    line-height: 0.75rem;
 }
 
 .feedback-faces {
     display: flex;
     justify-content: space-evenly;
 }
-
 .feedback-icon {
     width: 160px;
     height: 160px;
