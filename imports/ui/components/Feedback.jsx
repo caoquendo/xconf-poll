@@ -11,7 +11,7 @@ class Feedback extends Component {
         this.state = {
             isOpen: false,
             text: '',
-            face: 'medium'
+            face: ''
         };
     }
 
@@ -41,7 +41,7 @@ class Feedback extends Component {
             Meteor.call('feedbacks.insert', textToSave, faceToSave, (error, result) => {
                 if (!error) {
                     alert("¡Gracias por tu feedback!");
-                    this.setNewState({text: '', face: 'medium'});
+                    this.setNewState({text: '', face: ''});
                 } else {
                     alert("Ocurrió un error inesperado. Vuelve a intentar.");
                 }
@@ -66,22 +66,25 @@ class Feedback extends Component {
             return null;
         }
         return <div className="card-content">
-            <form>
-                <div className="row">
-                    <div className="col m12 feedback-faces">
-                        {this.__renderFace('sad')}
-                        {this.__renderFace('medium')}
-                        {this.__renderFace('happy')}
+            <form className="feedback-container">
+                <div className="feedback-prompt center-align">
+                    <small><strong>Esta información es anónima</strong>. Recuerda que puedes enviarnos feedback cuantas veces quieras.</small>
+                </div>
+                <div className="feedback-feelings">
+                    <label>¿Cómo te sientes?</label>
+                    <div className="row">
+                        <div className="col m12 feedback-faces">
+                            {this.__renderFace('sad')}
+                            {this.__renderFace('medium')}
+                            {this.__renderFace('happy')}
+                        </div>
                     </div>
                 </div>
                 <div className="input-field">
                     <textarea className="materialize-textarea"
                               value={this.state.text}
                               onChange={this.__onFeedbackWritten.bind(this)}/>
-                    <label>
-                        Dinos qué piensas
-                        <small>(Tus comentarios son anónimos)</small>
-                    </label>
+                    <label>Dinos qué piensas</label>
                 </div>
                 <div className="row">
                     <div className="col s12">

@@ -109,10 +109,19 @@ h5 {
 }
 
 .feedback-faces {
+    margin-top: 32px;
     display: flex;
     justify-content: space-evenly;
 }
 .feedback-icon {
-    width: 160px;
-    height: 160px;
+    width: 112px;
+    height: 112px;
+}
+.feedback-feelings label {
+    font-size: 1rem;
+}
+.feedback-prompt {
+    font-size: 1rem;
+    line-height: 1rem;
+    margin-bottom: 8px;
 }
