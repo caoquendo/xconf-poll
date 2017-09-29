@@ -12,8 +12,15 @@ class Topics extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            errors : null
+            isLoaded : false,
+            message : null
         }
+    }
+
+    setNewState(newVals) {
+        let prevState = this.state;
+        let newState = Object.assign(prevState, newVals);
+        this.setState(newState);
     }
 
     __onClick = (event) => {
@@ -24,27 +31,50 @@ class Topics extends Component {
 
         if (suggestedTopic !== '' && relatedConferenceName !== '') {
             Meteor.call('topics.insert', relatedConferenceName, suggestedTopic, (error, result) => {
+                let message = null;
                 if (!error) {
-                    alert("Tu sugerencia fue registrada");
+                    message = <div>
+                        <p className="message-title">¡Gracias!</p>
+                        <p>Tu sugerencia fue registrada.</p>
+                    </div>;
                     ReactDOM.findDOMNode(this.refs.topicTextarea).value = '';
                 } else {
-                    alert("Ocurrió un error inesperado. Vuelve a intentar.");
+                    message = <div>
+                        <p className="message-title">¡Oops!</p>
+                        <p>Ocurrió un error inesperado. Vuelve a intentar.</p>
+                    </div>;
                 }
-            });
+                this.setNewState({message : message});
 
+                setTimeout(() => {
+                    this.setNewState({message : null});
+                }, 3000);
+            });
         }
     };
 
     componentDidUpdate() {
-        if (!this.props.loading) {
+        if (!this.props.loading && !this.state.isLoaded) {
             $('.conference-select').material_select();
+            this.setNewState({isLoaded : true});
         }
+    }
+
+    __renderMessage() {
+        if (this.state.message === null) {
+            return null;
+        }
+        return <div className="alert-message teal lighten-3">
+            {this.state.message}
+        </div>
     }
 
     render() {
         return <div>
-            <span
-                className="xconf-title">Indícanos sobre qué te gustaría hablar más en el Open Space al final del día.</span>
+            <span className="xconf-title">
+                Indícanos sobre qué te gustaría hablar más en el Open Space al final del día.
+            </span>
+            {this.__renderMessage()}
             <form className="topic-form">
                 <div className="input-field">
                     <textarea className="materialize-textarea" ref="topicTextarea"/>

@@ -13,12 +13,12 @@
     },
     {
       "_id": "2",
-      "date": "2017-09-28",
+      "date": "2017-09-29",
       "startAll": "08:30",
-      "createTopics": "13:00",
-      "consolidateTopics": "15:00",
-      "vote": "15:30",
-      "results": "17:00",
+      "createTopics": "10:00",
+      "consolidateTopics": "18:10",
+      "vote": "19:30",
+      "results": "20:00",
       "endAll": "22:00",
       "default": false
     }

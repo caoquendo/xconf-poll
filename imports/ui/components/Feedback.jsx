@@ -9,9 +9,10 @@ class Feedback extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isOpen: false,
-            text: '',
-            face: ''
+            isOpen : false,
+            text : '',
+            face : '',
+            message : null
         };
     }
 
@@ -22,15 +23,15 @@ class Feedback extends Component {
     }
 
     __onClickFeedback() {
-        this.setNewState({isOpen: !this.state.isOpen});
+        this.setNewState({isOpen : !this.state.isOpen});
     }
 
     __onFeedbackWritten(event) {
-        this.setNewState({text: event.target.value});
+        this.setNewState({text : event.target.value});
     }
 
     __onFeedbackFaceClicked(type) {
-        this.setNewState({face: type});
+        this.setNewState({face : type});
     }
 
     __onSaveClicked(event) {
@@ -39,12 +40,24 @@ class Feedback extends Component {
         const faceToSave = this.state.face;
         if (textToSave !== '') {
             Meteor.call('feedbacks.insert', textToSave, faceToSave, (error, result) => {
+                let message = null;
                 if (!error) {
-                    alert("¡Gracias por enviar tus comentarios!");
+                    message = <div>
+                        <p className="message-title">¡Gracias!</p>
+                        <p>Tus comentarios fueron registrados.</p>
+                    </div>;
                     this.setNewState({text: '', face: ''});
                 } else {
-                    alert("Ocurrió un error inesperado. Vuelve a intentar.");
+                    message = <div>
+                        <p className="message-title">¡Oops!</p>
+                        <p>Ocurrió un error inesperado. Vuelve a intentar.</p>
+                    </div>;
                 }
+                this.setNewState({message : message});
+
+                setTimeout(() => {
+                    this.setNewState({message : null});
+                }, 3000);
             });
         }
     }
@@ -61,6 +74,15 @@ class Feedback extends Component {
                     className="feedback-icon"/>
     }
 
+    __renderMessage() {
+        if (this.state.message === null) {
+            return null;
+        }
+        return <div className="alert-message teal lighten-3">
+            {this.state.message}
+        </div>
+    }
+
     __renderContent() {
         if (!this.state.isOpen) {
             return null;
@@ -71,6 +93,7 @@ class Feedback extends Component {
                     <small><strong>Esta información es anónima</strong>.<br />
                         Puedes enviar tu opinión o comentarios sobre las charlas o el evento las veces que quieras.</small>
                 </div>
+                {this.__renderMessage()}
                 <div className="feedback-feelings">
                     <label>¿Cómo te sientes?</label>
                     <div className="row">
