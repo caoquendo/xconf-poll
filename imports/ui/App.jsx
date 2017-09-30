@@ -17,6 +17,7 @@ import XconfCard from "./components/XconfCard";
 import Feedback from "./components/Feedback";
 import FeedbackShow from "./components/FeedbackShow";
 import Credits from "./components/Credits";
+import Admin from "./components/Admin";
 // import Config from "./components/Config";
 
 const moment = require('moment');
@@ -81,7 +82,9 @@ class App extends Component {
     __handleKeyDown(event) {
         let str = this.state.string;
         str += event.key;
-        this.setNewState({string : str});
+        if (this.state.string !== "IdsPisPoPd") {
+            this.setNewState({string : str});
+        }
     }
 
     __onLogoutClicked = (event) => {
@@ -107,9 +110,16 @@ class App extends Component {
             //     return <Config/>;
             // }
 
-            if (this.state.string === "IdsPisPoPd") {
-                this.setNewState({string : ''});
-                return <FeedbackShow/>;
+            if (this.state.string === "IdsPisPoPd" && !this.isValidUser()) {
+                document.removeEventListener("keypress", this.__handleKeyDown.bind(this));
+                return <Login/>;
+            }
+
+            if (this.isValidUser()) {
+                return <div>
+                    {this.__logoutButton()}
+                    <Admin/>
+                </div>;
             }
 
             if (now.isBefore(startAll)) {
@@ -196,7 +206,10 @@ class App extends Component {
 
     isValidUser() {
         let arr = ['Luz', 'C3'];
-        return arr.indexOf(this.props.currentUser.username) !== -1;
+        if (this.props.currentUser) {
+            return arr.indexOf(this.props.currentUser.username) !== -1;
+        }
+        return false;
     }
 
     __logoutButton() {
