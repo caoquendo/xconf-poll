@@ -40,13 +40,16 @@ export default class Login extends Component {
 
     render() {
         return <div>
-            <span className="card-title xconf-title">Por favor identifícate para continuar.</span>
+            <span className="card-title xconf-title">
+                Por favor identifícate para continuar.
+            </span>
+
             <form className="login-form">
                 <div className="input-field">
                     <input type="text" ref="nameInput"/>
                     <label>
                         Nombre y apellido
-                        <small>(Como está en tu identificación)</small>
+                        <small>(Mira tu identificación, sin tildes ni ñ)</small>
                     </label>
                 </div>
                 <div className="input-field">
