@@ -162,12 +162,6 @@ class App extends Component {
                     </div>;
                 }
                 if (now.isSameOrAfter(startConsolidate)) {
-                    if (this.isValidUser()) {
-                        return <div>
-                            {this.__logoutButton()}
-                            <Consolidate/>
-                        </div>
-                    }
                     return this.__withLogoutButton(
                         <ConsolidateWait/>, startConsolidate, startVote, "¡Pronto podrás votar por tus favoritos!");
                 }
